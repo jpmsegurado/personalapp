@@ -1,25 +1,21 @@
 import 'es6-shim';
-import {App, Platform} from 'ionic-angular';
+import {App, Platform,MenuController} from 'ionic-angular';
 import {StatusBar} from 'ionic-native';
 import {TabsPage} from './pages/tabs/tabs';
 
 
 @App({
-  template: '<ion-nav [root]="rootPage"></ion-nav>',
+  templateUrl: 'build/pages/app.html',
   config: {tabbarPlacement: 'bottom'} // http://ionicframework.com/docs/v2/api/config/Config/
 })
 export class MyApp {
   static get parameters() {
-    return [[Platform]];
+    return [[Platform,MenuController]];
   }
 
-  constructor(platform) {
+  constructor(platform,menu) {
     this.rootPage = TabsPage;
+    this.menu = menu;
 
-    // platform.ready().then(() => {
-    //   // Okay, so the platform is ready and our plugins are available.
-    //   // Here you can do any higher level native things you might need.
-    //   StatusBar.styleDefault();
-    // });
   }
 }
