@@ -32,9 +32,12 @@ $colors: (
 
 $toolbar-background:#f42b3e;
 $toolbar-md-text-color:#000;
+$toolbar-ios-text-color:#000;
 $tabbar-md-background:#f42b3e;
 $tab-button-md-inactive-color:#a00e1c;
+$tab-button-ios-inactive-color:#a00e1c;
 $tab-button-md-active-color:#650816;
+$tab-button-ios-active-color:#650816;
 
 .page1,.page2,.page3,.page-4{
   background-color: #e6e6e6;
@@ -45,7 +48,7 @@ $tab-button-md-active-color:#650816;
 }
 
 .gray-text{
-  color: #777;
+  color: #777 !important;
 }
 
 .bold{
@@ -56,6 +59,17 @@ $tab-button-md-active-color:#650816;
   text-align: left;
 }
 
+.text-center{
+  text-align: center;
+}
 .text-right{
   text-align: right;
+}
+
+.green-text{
+  color: #57b568 !important;
+}
+
+.red-text{
+  color: #a00e1c !important;
 }

@@ -6,6 +6,11 @@ import {Page} from 'ionic-angular';
 })
 export class Page4 {
   constructor() {
+    this.view = "recebidos";
+  }
 
+
+  onSegmentChanged(event){
+    this.view = event.value;
   }
 }
