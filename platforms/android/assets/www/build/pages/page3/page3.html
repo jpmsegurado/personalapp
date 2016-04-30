@@ -1,5 +1,65 @@
-
+<ion-navbar *navbar>
+  <button menuToggle>
+    <ion-icon name="menu"></ion-icon>
+  </button>
+  <ion-title>PersonalApp</ion-title>
+  <ion-buttons end>
+    <button (click)="add()">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-buttons>
+</ion-navbar>
 
 <ion-content class="page3">
+
+  <div padding>
+    <ion-segment dark (change)="onSegmentChanged($event)">
+      <ion-segment-button value="alunos" class="segment-activated">Alunos</ion-segment-button>
+      <ion-segment-button value="ex-alunos">Ex-Alunos</ion-segment-button>
+    </ion-segment>
+
+    <div *ngIf="view == 'alunos'">
+
+      <ion-card>
+        <ion-card-content>
+          <div class="card-wrapper">
+            <h2 class="bold">Pedro Paulo</h2>
+            <p>
+              12:00hrs as 13:00hrs
+            </p>
+          </div>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card>
+        <ion-card-content>
+          <div class="card-wrapper">
+            <h2 class="bold">Pedro Paulo</h2>
+            <p>
+              12:00hrs as 13:00hrs
+            </p>
+          </div>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card>
+        <ion-card-content>
+          <div class="card-wrapper">
+            <h2 class="bold">Pedro Paulo</h2>
+            <p>
+              12:00hrs as 13:00hrs
+            </p>
+          </div>
+        </ion-card-content>
+      </ion-card>
+
+    </div>
+
+
+    <div *ngIf="view == 'ex-alunos'">
+
+    </div>
+
+  </div>
 
 </ion-content>

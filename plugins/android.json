@@ -8,22 +8,30 @@
     },
     "installed_plugins": {
         "cordova-plugin-console": {
-            "PACKAGE_NAME": "com.ionicframework.personal386149"
+            "PACKAGE_NAME": "br.com.personalapp"
         },
         "cordova-plugin-device": {
-            "PACKAGE_NAME": "com.ionicframework.personal386149"
+            "PACKAGE_NAME": "br.com.personalapp"
+        },
+        "cordova-plugin-facebook4": {
+            "APP_ID": "1540474112925423",
+            "APP_NAME": "PersonalApp",
+            "PACKAGE_NAME": "br.com.personalapp"
         },
         "cordova-plugin-splashscreen": {
-            "PACKAGE_NAME": "com.ionicframework.personal386149"
+            "PACKAGE_NAME": "br.com.personalapp"
         },
         "cordova-plugin-statusbar": {
-            "PACKAGE_NAME": "com.ionicframework.personal386149"
+            "PACKAGE_NAME": "br.com.personalapp"
         },
         "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "com.ionicframework.personal386149"
+            "PACKAGE_NAME": "br.com.personalapp"
         },
         "ionic-plugin-keyboard": {
-            "PACKAGE_NAME": "com.ionicframework.personal386149"
+            "PACKAGE_NAME": "br.com.personalapp"
+        },
+        "cordova-sqlite-storage": {
+            "PACKAGE_NAME": "br.com.personalapp"
         }
     },
     "dependent_plugins": {}

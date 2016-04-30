@@ -1,0 +1,52 @@
+
+
+<ion-content padding class="page-4">
+
+  <ion-row>
+    <ion-col>
+      <button clear dark class="gray-text text-center">Março 16</button>
+    </ion-col>
+    <ion-col>
+      <button clear dark class="text-center bold">Abril 16</button>
+    </ion-col>
+    <ion-col>
+      <button clear dark class="gray-text text-center">Maio 16</button>
+    </ion-col>
+  </ion-row>
+
+  <div>
+
+    <ion-segment dark (change)="onSegmentChanged($event)">
+      <ion-segment-button value="recebidos" class="segment-activated">Recebidos</ion-segment-button>
+      <ion-segment-button value="nao-recebidos">Não Recebidos</ion-segment-button>
+    </ion-segment>
+
+    <div *ngIf="view == 'recebidos'">
+
+      <ion-card>
+        <ion-card-content>
+          <div class="card-wrapper">
+            <h2 class="bold">Pedro Paulo</h2>
+            <p>
+              12:00hrs as 13:00hrs
+            </p>
+            <p class="valor-nao-recebido">
+              R$500,00
+            </p>
+            <p class="red-text status-nao-recebido">
+              Não recebido
+            </p>
+          </div>
+        </ion-card-content>
+      </ion-card>
+
+    </div>
+
+
+    <div *ngIf="view == 'nao-recebidos'">
+
+    </div>
+
+  </div>
+
+</ion-content>

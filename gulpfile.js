@@ -55,7 +55,12 @@ gulp.task('build', ['clean'], function(done){
 gulp.task('sass', buildSass);
 gulp.task('html', copyHTML);
 gulp.task('fonts', copyFonts);
-gulp.task('scripts', copyScripts);
+gulp.task('scripts', function() {
+  return copyScripts([
+    'node_modules/es6-shim/es6-shim.min.js',
+    'node_modules/angular2/bundles/angular2-polyfills.js'
+  ]);
+});
 gulp.task('clean', function(){
   return del('www/build');
 });

@@ -27,6 +27,8 @@ $colors: (
   light:      #f4f4f4,
   dark:       #222,
   vermelho:   #f42b3e,
+  verdebtn:   #38af63,
+  cinzabg:    #e6e6e6,
   favorite:   #69BB7B
 );
 
@@ -38,8 +40,9 @@ $tab-button-md-inactive-color:#a00e1c;
 $tab-button-ios-inactive-color:#a00e1c;
 $tab-button-md-active-color:#650816;
 $tab-button-ios-active-color:#650816;
+$item-md-note-color:#000;
 
-.page1,.page2,.page3,.page-4{
+.page1,.page2,.page3,.page-4,.add-aluno-page,.add-aula{
   background-color: #e6e6e6;
 }
 

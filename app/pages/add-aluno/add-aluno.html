@@ -1,0 +1,35 @@
+<ion-navbar *navbar>
+  <ion-title>Adicionar Aluno</ion-title>
+</ion-navbar>
+
+<ion-content class="add-aluno-page">
+
+  <ion-list cinzabg>
+
+    <ion-item>
+      <ion-input [(ngModel)]="aluno.nome" type="text" value="" placeholder="Nome"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input [(ngModel)]="aluno.nascimento" type="text" value="" placeholder="Data Nascimento"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input [(ngModel)]="aluno.telefone" type="text" value="" placeholder="Telefone"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input [(ngModel)]="aluno.peso" width-50 type="text" value="" placeholder="Peso"></ion-input>
+      <ion-input [(ngModel)]="aluno.altura" width-50 type="text" value="" placeholder="Altura"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input [(ngModel)]="aluno.objetivo" type="text" value="" placeholder="Objetivo"></ion-input>
+    </ion-item>
+
+
+  </ion-list>
+
+  <ion-row>
+    <ion-col width-80 offset-10>
+      <button (click)="add(aluno)" full verdebtn>salvar</button>
+    </ion-col>
+  </ion-row>
+
+</ion-content>
