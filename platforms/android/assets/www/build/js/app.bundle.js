@@ -50,7 +50,7 @@ var MyApp = exports.MyApp = (_dec = (0, _ionicAngular.App)({
   function MyApp(platform, menu) {
     _classCallCheck(this, MyApp);
 
-    this.rootPage = _addAula.AddAulaPage;
+    this.rootPage = _tabs.TabsPage;
     this.menu = menu;
     this.local = new _ionicAngular.Storage(_ionicAngular.LocalStorage);
   }
@@ -284,8 +284,6 @@ var _aula = require('../../providers/aula/aula');
 
 var _ionicNative = require('ionic-native');
 
-var _common = require('angular2/common');
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var AddAulaPage = exports.AddAulaPage = (_dec = (0, _ionicAngular.Page)({
@@ -294,11 +292,11 @@ var AddAulaPage = exports.AddAulaPage = (_dec = (0, _ionicAngular.Page)({
   _createClass(AddAulaPage, null, [{
     key: 'parameters',
     get: function get() {
-      return [[_ionicAngular.NavController], [_aluno.Aluno], [_aula.Aula], [_common.FormBuilder]];
+      return [[_ionicAngular.NavController], [_aluno.Aluno], [_aula.Aula]];
     }
   }]);
 
-  function AddAulaPage(nav, AlunoService, AulaService, _builder) {
+  function AddAulaPage(nav, AlunoService, AulaService) {
     var _this = this;
 
     _classCallCheck(this, AddAulaPage);
@@ -307,36 +305,27 @@ var AddAulaPage = exports.AddAulaPage = (_dec = (0, _ionicAngular.Page)({
     this.AlunoService = AlunoService;
     this.AulaService = AulaService;
     this.AlunoService.getAll().subscribe(function (data) {
+      console.log(data);
       _this.alunos = data;
     });
 
-    this.aula = _builder.group({
-      aluno: ['', _common.Validators.required],
-      dia: ['', _common.Validators.required],
-      'hora_inicio': ['', _common.Validators.required],
-      'hora_fim': ['', _common.Validators.required],
-      'preco_aula': ['', _common.Validators.required],
-      'preco_hora': ['', _common.Validators.required]
-    });
-
-    this.aula.controls['dia'] = "Segunda";
-
-    // this.aula = {
-    //   aluno:-1,
-    //   dia:"Segunda",
-    //   hora_inicio:"",
-    //   hora_fim:"",
-    //   preco_aula:"",
-    //   preco_hora:""
-    // };
+    this.aula = {
+      alunoId: -1,
+      dia: "Segunda",
+      hora_inicio: "",
+      hora_fim: "",
+      preco_aula: "",
+      preco_hora: ""
+    };
     this.dias_semana = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'];
     this.dia = this.dias_semana[0];
   }
 
   _createClass(AddAulaPage, [{
-    key: 'onSubmit',
-    value: function onSubmit(value) {
-      console.log(value);
+    key: 'change',
+    value: function change(aula) {
+      var alunoIndex = this.AlunoService._findIndex(this.alunos, aula.alunoId);
+      aula.aluno = this.alunos[alunoIndex];
     }
   }, {
     key: 'add',
@@ -363,10 +352,10 @@ var AddAulaPage = exports.AddAulaPage = (_dec = (0, _ionicAngular.Page)({
     }
   }, {
     key: 'pickDate',
-    value: function pickDate(varToSave, type) {
+    value: function pickDate() {
       _ionicNative.DatePicker.show({
         date: new Date(),
-        mode: type
+        mode: 'time'
       }).then(function (date) {
         return console.log("Got date: ", date);
       }, function (err) {
@@ -378,7 +367,7 @@ var AddAulaPage = exports.AddAulaPage = (_dec = (0, _ionicAngular.Page)({
   return AddAulaPage;
 }()) || _class);
 
-},{"../../providers/aluno/aluno":10,"../../providers/aula/aula":11,"angular2/common":12,"ionic-angular":346,"ionic-native":407}],5:[function(require,module,exports){
+},{"../../providers/aluno/aluno":10,"../../providers/aula/aula":11,"ionic-angular":346,"ionic-native":407}],5:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -444,20 +433,50 @@ var Page2 = exports.Page2 = (_dec = (0, _ionicAngular.Page)({
   }]);
 
   function Page2(nav, AulaService) {
-    var _this = this;
-
     _classCallCheck(this, Page2);
 
     this.nav = nav;
     this.view = "hoje";
     this.AulaService = AulaService;
-    this.AulaService.getAll().subscribe(function (data) {
-      console.log(data);
-      _this.aula = data;
-    });
+    this.dias_semana = [{ title: 'Segunda', aulas: {} }, { title: 'Terça', aulas: {} }, { title: 'Quarta', aulas: {} }, { title: 'Quinta', aulas: {} }, { title: 'Sexta', aulas: {} }, { title: 'Sábado', aulas: {} }, { title: 'Domingo', aulas: {} }];
   }
 
   _createClass(Page2, [{
+    key: 'onPageWillEnter',
+    value: function onPageWillEnter() {
+      var _this = this;
+
+      this.AulaService.getAll().subscribe(function (data) {
+        data.forEach(function (item) {
+          _this.dias_semana.forEach(function (dia) {
+            if (dia.aulas[item.hora_inicio] == undefined && item.dia == dia.title) {
+              dia.aulas[item.hora_inicio] = [];
+            }
+            if (item.dia == dia.title && dia.aulas[item.hora_inicio].indexOf(item) == -1) {
+              dia.aulas[item.hora_inicio].push(item);
+            }
+          });
+        });
+        _this.aulas = data;
+        console.log(_this.aulas);
+
+        console.log(_this.dias_semana);
+      });
+    }
+  }, {
+    key: 'getAulas',
+    value: function getAulas(obj) {
+      var array = [];
+      for (var prop in obj) {
+        var item = {};
+        item.qtd = obj[prop].length;
+        item.title = prop;
+        array.push(item);
+      }
+
+      return array;
+    }
+  }, {
     key: 'add',
     value: function add() {
       this.nav.push(_addAula.AddAulaPage);

@@ -4,13 +4,12 @@
 
 <ion-content class="add-aula">
 
-  <form [ngFormModel]="aula"  (ngSubmit)="onSubmit(aula.value)">
+  <form>
     <ion-list>
       <ion-item>
         <ion-label>Aluno</ion-label>
-        <ion-select [(ngModel)]="aula.aluno" >
-          <ion-option value="-1" checked="true">Escolha um aluno</ion-option>
-          <ion-option *ngFor="#aluno of alunos" value="{{aluno}}">
+        <ion-select [(ngModel)]="aula.alunoId" (change)="change(aula)">
+          <ion-option *ngFor="#aluno of alunos;" value="{{aluno._id}}">
             {{aluno.nome}} - {{aluno.objetivo}}
           </ion-option>
         </ion-select>
@@ -24,26 +23,26 @@
           </ion-option>
         </ion-select>
       </ion-item>
-      <ion-item (click)="pickDate(aula.controls['hora_inicio'],'time')">
+      <ion-item>
         <ion-label>Hora de início</ion-label>
-        <ion-input type="text" placeholder="Ex: 13:00" [ngFormControl]="aula.controls['hora_inicio']" readonly></ion-input>
+        <ion-input type="text" placeholder="Ex: 13:00" [(ngModel)]="aula.hora_inicio" ></ion-input>
       </ion-item>
-      <ion-item (click)="pickDate(aula.controls['hora_fim'],'time')">
+      <ion-item>
         <ion-label>Hora de fim</ion-label>
-        <ion-input placeholder="Ex: 14:00" type="text" [ngFormControl]="aula.controls['hora_fim']" readonly></ion-input>
+        <ion-input placeholder="Ex: 14:00" type="text" [(ngModel)]="aula.hora_fim" ></ion-input>
       </ion-item>
       <ion-item >
         <ion-label>Preço hora</ion-label>
-        <ion-input placeholder="Ex: 50,00" type="decimal" [ngFormControl]="aula.controls['preco_hora']" ></ion-input>
+        <ion-input placeholder="Ex: 50,00" type="text" [(ngModel)]="aula.preco_hora"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label>Preço aula</ion-label>
-        <ion-input placeholder="Ex: 100,00" type="decimal" [ngFormControl]="aula.controls['preco_aula']" ></ion-input>
+        <ion-input placeholder="Ex: 100,00" type="text" [(ngModel)]="aula.preco_aula"></ion-input>
       </ion-item>
     </ion-list>
     <ion-row>
       <ion-col width-80 offset-10>
-        <button type="submit"  (click)="add(aula)" full verdebtn>salvar</button>
+        <button (click)="add(aula)" full verdebtn>salvar</button>
       </ion-col>
     </ion-row>
   </form>

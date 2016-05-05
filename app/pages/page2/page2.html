@@ -18,35 +18,24 @@
       <ion-segment-button value="semanal">Semanal</ion-segment-button>
     </ion-segment>
 
-    <div *ngIf="view == 'hoje'">
-      <ion-card>
-        <ion-card-content>
-          <div class="card-wrapper">
-            <h2 class="bold">Pedro Paulo</h2>
-            <p>
-              12:00hrs as 13:00hrs
-            </p>
-            <p class="status green-text">
-              Realizada
-            </p>
-          </div>
-        </ion-card-content>
-      </ion-card>
+    <div *ngIf="view == 'hoje'" padding-top>
 
-      <h2 class="gray-text">Foram Realizadas?</h2>
+      <h2 class="gray-text">Foram Realizadas hoje?</h2>
 
-      <ion-card>
-        <ion-card-content>
-          <div class="card-wrapper">
-            <h2 class="bold">Pedro Paulo</h2>
-            <p>
-              12:00hrs as 13:00hrs
+      <ion-card class="todo-card" *ngFor="#aula of aulas">
+        <div class="card-wrapper">
+          <ion-card-content>
+            <h2 class="bold no-text-overlow">{{aula.aluno.nome}} - {{aula.aluno.objetivo}}</h2>
+            <p class="no-text-overlow">
+              {{aula.hora_inicio}} - {{aula.hora_fim}}
             </p>
-            <p class="status green-text">
-              Realizada
-            </p>
-          </div>
-        </ion-card-content>
+            <div class="button-actions">
+              <button clear primary>Remarcar</button>
+              <button clear danger>Não</button>
+              <button clear verdebtn>Sim</button>
+            </div>
+          </ion-card-content>
+        </div>
       </ion-card>
 
 
@@ -54,7 +43,18 @@
 
 
     <div *ngIf="view == 'semanal'">
-
+      <br />
+      <div class="schedule">
+        <div *ngFor="#dia of dias_semana" class="dia text-center">
+          {{dia.title.substring(0,3)}}
+          <div *ngFor="#horario of getAulas(dia.aulas)" class="hora">
+            {{horario.title}}
+            <br />
+            <span *ngIf="horario.qtd == 1">{{horario.qtd}} aluno</span>
+            <span *ngIf="horario.qtd > 1">{{horario.qtd}} alunos</span>
+          </div>
+        </div>
+      </div>
     </div>
 
   </div>

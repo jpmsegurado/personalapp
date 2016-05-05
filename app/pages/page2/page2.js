@@ -15,14 +15,46 @@ export class Page2 {
     this.nav = nav;
     this.view = "hoje";
     this.AulaService = AulaService;
-    this.AulaService.getAll().subscribe((data) => {
-      console.log(data);
-      this.aula = data;
-    });
+    this.dias_semana = [
+      {title: 'Segunda',aulas:{}},
+      {title: 'Terça',aulas:{}},
+      {title: 'Quarta',aulas:{}},
+      {title: 'Quinta',aulas:{}},
+      {title: 'Sexta',aulas:{}},
+      {title: 'Sábado',aulas:{}},
+      {title: 'Domingo',aulas:{}}
+    ];
+
   }
 
 
+  onPageWillEnter(){
+    this.AulaService.getAll().subscribe((data) => {
+      data.forEach((item) => {
+        this.dias_semana.forEach((dia) =>{
+          if(dia.aulas[item.hora_inicio] == undefined && item.dia == dia.title){
+            dia.aulas[item.hora_inicio] = [];
+          }
+          if(item.dia == dia.title && dia.aulas[item.hora_inicio].indexOf(item) == -1){
+            dia.aulas[item.hora_inicio].push(item);
+          }
+        });
+      });
+      this.aulas = data;
+    });
+  }
 
+  getAulas(obj){
+    var array = [];
+    for(var prop in obj){
+      var item = {};
+      item.qtd = obj[prop].length;
+      item.title = prop;
+      array.push(item);
+    }
+
+    return array;
+  }
   add(){
     this.nav.push(AddAulaPage);
   }

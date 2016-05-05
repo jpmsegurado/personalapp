@@ -10347,6 +10347,58 @@ body {
   font-size: 1.4rem;
   background-color: #fff; }
 
+.page2 .dia {
+  float: left;
+  width: 14.285%;
+  font-size: 14px;
+  background: #fff;
+  min-height: 132px;
+  border-left: solid 1px #888;
+  border-top: solid 1px #888;
+  border-bottom: solid 1px #888; }
+
+.page2 .dia span {
+  font-size: 12px; }
+
+.page2 .dia .hora {
+  margin-bottom: 10px;
+  padding: 5px 0; }
+
+.page2 .dia .hora:first-of-type {
+  margin-top: 5px; }
+
+.page2 .dia .hora:nth-child(odd) {
+  background-color: #888; }
+
+.page2 .dia .hora:nth-child(even) {
+  background-color: #ff0; }
+
+.page2 .dia:last-of-type {
+  border-right: solid 1px #888; }
+
+.page2 .horario {
+  position: absolute;
+  top: 0px;
+  right: 0; }
+
+.page2 .button-actions {
+  position: absolute;
+  top: 61px;
+  left: 0;
+  right: 0;
+  margin: auto; }
+
+.page2 .button-actions button {
+  float: right; }
+
+.page2 .todo-card {
+  height: 105px; }
+
+.no-text-overlow {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden; }
+
 .card-wrapper {
   position: relative; }
 

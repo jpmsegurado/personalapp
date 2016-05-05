@@ -22,7 +22,7 @@ export class MyApp {
   }
 
   constructor(platform,menu) {
-    this.rootPage = AddAulaPage;
+    this.rootPage = TabsPage;
     this.menu = menu;
     this.local = new Storage(LocalStorage);
 
