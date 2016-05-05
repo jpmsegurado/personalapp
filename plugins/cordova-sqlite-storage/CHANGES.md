@@ -1,53 +1,13 @@
 # Changes
 
-## 1.2.2
-
-- Self-test function to verify ability to open/populate/read/delete a test database
-- Read BLOB as Base-64 DISABLED in Android version (was already disabled for iOS)
-
-## 1.2.1
-
-- Close Android SQLiteStatement after INSERT/UPDATE/DELETE
-- Specify minimum Cordova version 6.0.0
-- Lawnchair adapter fix: Changed remove method to work with key array
-
-## 1.2.0
-
-- Rename Lawnchair adapter to prevent clash with standard webkit-sqlite adapter
-- Support location: 'default' setting in openDatabase & deleteDatabase
-
-## 0.8.5
-
-- More explicit iosDatabaseLocation option
-- iOS database location is now mandatory
-- Split-up of some more spec test scripts
-
-## 0.8.2
-
-- Workaround fix for empty readTransaction issue (litehelpers/Cordova-sqlite-storage#409)
-- Split spec/www/spec/legacy.js into db-open-close-delete-test.js & tx-extended.js
-
-## 0.8.0
-
-- Simple sql batch transaction function
-- Echo test function
-- Remove extra runInBackground: step from iOS version
-- Android-sqlite-connector (NDK) support removed from this version branch
-- Windows version removed from this version branch
-- Java source of Android version now using io.sqlc package
-
-## 0.7.15-pre
-
-- All iOS operations are now using background processing (reported to resolve intermittent problems with cordova-ios@4.0.1)
-
 ## 0.7.14
 
-- REGEXP support completely removed from this version branch
+- REGEXP support removed from this version branch
 - Remove src/android/libs/.gitignore (inadvertently added in 0.7.13)
 
 ## 0.7.13
 
-- REGEXP support partially removed from this version branch
+- REGEXP support removed from this version branch
 - Rename Windows C++ Database close function to closedb to resolve conflict for Windows Store certification
 - Android version with sqlite `3.8.10.2` embedded (with error messages fixed)
 - Pre-populated database support removed from this version branch
@@ -65,7 +25,7 @@
 - Fix plugin ID in plugin.xml to match npm package ID
 - Unpacked sqlite-native-driver.so libraries from jar
 - Fix conversion of INTEGER type (iOS version)
-- Disable code to read BLOB as Base-64 (iOS version) due to https://issues.apache.org/jira/browse/CB-9638
+- Disable code to read BLOB as Base-64 due to https://issues.apache.org/jira/browse/CB-9638
 
 ## 0.7.10
 
@@ -158,3 +118,4 @@
   - fix integer data binding
 - Fix open/close callbacks Android & WP(8)
 - Resolve issue with INSERT OR IGNORE (Android)
+

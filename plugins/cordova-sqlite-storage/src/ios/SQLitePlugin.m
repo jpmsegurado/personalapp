@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2016: Christopher J. Brody (aka Chris Brody)
+ * Copyright (c) 2012-2015: Christopher J. Brody (aka Chris Brody)
  * Copyright (C) 2011 Davide Bertola
  *
  * This library is available under the terms of the MIT License (2008).
@@ -10,12 +10,12 @@
 
 #import "sqlite3.h"
 
-// FUTURE TBD (in another version branch):
-//#define READ_BLOB_AS_BASE64
-
-// FUTURE TBD (in another version branch & TBD subjet to change):
-//#define INCLUDE_SQL_BLOB_BINDING
-
+// NOTE: This is now broken by cordova-ios 4.0, see:
+// https://issues.apache.org/jira/browse/CB-9638
+// Solution is to use NSJSONSerialization instead.
+#ifdef READ_BLOB_AS_BASE64
+#import <Cordova/NSData+Base64.h>
+#endif
 
 @implementation SQLitePlugin
 
@@ -81,27 +81,7 @@
     return dbPath;
 }
 
--(void)echoStringValue: (CDVInvokedUrlCommand*)command
-{
-    CDVPluginResult * pluginResult = nil;
-    NSMutableDictionary * options = [command.arguments objectAtIndex:0];
-
-    NSString * string_value = [options objectForKey:@"value"];
-
-    NSLog(@"echo string value: %@", string_value);
-
-    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:string_value];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId: command.callbackId];
-}
-
 -(void)open: (CDVInvokedUrlCommand*)command
-{
-    [self.commandDelegate runInBackground:^{
-        [self openNow: command];
-    }];
-}
-
--(void)openNow: (CDVInvokedUrlCommand*)command
 {
     CDVPluginResult* pluginResult = nil;
     NSMutableDictionary *options = [command.arguments objectAtIndex:0];
@@ -165,14 +145,8 @@
     // NSLog(@"open cb finished ok");
 }
 
--(void) close: (CDVInvokedUrlCommand*)command
-{
-    [self.commandDelegate runInBackground:^{
-        [self closeNow: command];
-    }];
-}
 
--(void)closeNow: (CDVInvokedUrlCommand*)command
+-(void) close: (CDVInvokedUrlCommand*)command
 {
     CDVPluginResult* pluginResult = nil;
     NSMutableDictionary *options = [command.arguments objectAtIndex:0];
@@ -204,13 +178,6 @@
 }
 
 -(void) delete: (CDVInvokedUrlCommand*)command
-{
-    [self.commandDelegate runInBackground:^{
-        [self deleteNow: command];
-    }];
-}
-
--(void)deleteNow: (CDVInvokedUrlCommand*)command
 {
     CDVPluginResult* pluginResult = nil;
     NSMutableDictionary *options = [command.arguments objectAtIndex:0];
@@ -244,11 +211,11 @@
 -(void) backgroundExecuteSqlBatch: (CDVInvokedUrlCommand*)command
 {
     [self.commandDelegate runInBackground:^{
-        [self executeSqlBatchNow: command];
+        [self executeSqlBatch: command];
     }];
 }
 
--(void) executeSqlBatchNow: (CDVInvokedUrlCommand*)command
+-(void) executeSqlBatch: (CDVInvokedUrlCommand*)command
 {
     NSMutableDictionary *options = [command.arguments objectAtIndex:0];
     NSMutableArray *results = [NSMutableArray arrayWithCapacity:0];
@@ -553,12 +520,18 @@
 +(NSString*)getBlobAsBase64String:(const char*)blob_chars
                        withLength:(int)blob_length
 {
-    // THANKS for guidance: http://stackoverflow.com/a/8354941/1283667
-    NSData * data = [NSData dataWithBytes: (const void *)blob_chars length: blob_length];
+    size_t outputLength = 0;
+    char* outputBuffer = CDVNewBase64Encode(blob_chars, blob_length, true, &outputLength);
 
-    // THANKS for guidance:
-    // https://github.com/apache/cordova-ios/blob/master/guides/API%20changes%20in%204.0.md#nsdatabase64h-removed
-    return [data base64EncodedStringWithOptions:0];
+    NSString* result = [[NSString alloc] initWithBytesNoCopy:outputBuffer
+                                                      length:outputLength
+                                                    encoding:NSASCIIStringEncoding
+                                                freeWhenDone:YES];
+#if !__has_feature(objc_arc)
+    [result autorelease];
+#endif
+
+    return result;
 }
 #endif
 

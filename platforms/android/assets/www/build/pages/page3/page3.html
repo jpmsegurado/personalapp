@@ -20,38 +20,18 @@
 
     <div *ngIf="view == 'alunos'">
 
-      <ion-card>
+      <ion-card *ngFor="#aluno of alunos">
         <ion-card-content>
           <div class="card-wrapper">
-            <h2 class="bold">Pedro Paulo</h2>
+            <h2 class="bold">{{aluno.nome}} - {{aluno.objetivo}}</h2>
             <p>
-              12:00hrs as 13:00hrs
+              {{aluno.peso}}kg - {{aluno.altura}}m
             </p>
           </div>
         </ion-card-content>
       </ion-card>
 
-      <ion-card>
-        <ion-card-content>
-          <div class="card-wrapper">
-            <h2 class="bold">Pedro Paulo</h2>
-            <p>
-              12:00hrs as 13:00hrs
-            </p>
-          </div>
-        </ion-card-content>
-      </ion-card>
 
-      <ion-card>
-        <ion-card-content>
-          <div class="card-wrapper">
-            <h2 class="bold">Pedro Paulo</h2>
-            <p>
-              12:00hrs as 13:00hrs
-            </p>
-          </div>
-        </ion-card-content>
-      </ion-card>
 
     </div>
 

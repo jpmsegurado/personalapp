@@ -8255,3 +8255,6 @@ body {
 
 .add-aula ion-list .item-inner {
   border-bottom: 1px solid #bbb; }
+
+.add-aula ion-input input {
+  text-align: right !important; }

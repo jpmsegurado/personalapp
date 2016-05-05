@@ -30,7 +30,13 @@
         "ionic-plugin-keyboard": {
             "PACKAGE_NAME": "br.com.personalapp"
         },
+        "cordova-plugin-dialogs": {
+            "PACKAGE_NAME": "br.com.personalapp"
+        },
         "cordova-sqlite-storage": {
+            "PACKAGE_NAME": "br.com.personalapp"
+        },
+        "cordova-plugin-datepicker": {
             "PACKAGE_NAME": "br.com.personalapp"
         }
     },

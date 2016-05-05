@@ -83,7 +83,6 @@
     SQLitePlugin = (openargs, openSuccess, openError) ->
       # console.log "SQLitePlugin openargs: #{JSON.stringify openargs}"
 
-      # _should_ already be checked by openDatabase:
       if !(openargs and openargs['name'])
         throw newSQLError "Cannot create a SQLitePlugin db instance without a db name"
 
@@ -287,33 +286,6 @@
       @addTransaction new SQLitePluginTransaction(this, myfn, null, null, false, false)
       return
 
-    SQLitePlugin::sqlBatch = (sqlStatements, success, error) ->
-      if !sqlStatements || sqlStatements.constructor isnt Array
-        throw newSQLError 'sqlBatch expects an array'
-
-      batchList = []
-
-      for st in sqlStatements
-        if st.constructor is Array
-          if st.length == 0
-            throw newSQLError 'sqlBatch array element of zero (0) length'
-
-          batchList.push
-            sql: st[0]
-            params: if st.length == 0 then [] else st[1]
-
-        else
-          batchList.push
-            sql: st
-            params: []
-
-      myfn = (tx) ->
-        for elem in batchList
-          tx.addStatement(elem.sql, elem.params, null, null)
-
-      @addTransaction new SQLitePluginTransaction(this, myfn, error, success, true, false)
-      return
-
 ## SQLite plugin transaction object for batching:
 
     SQLitePluginTransaction = (db, fn, error, success, txlock, readOnly) ->
@@ -338,11 +310,6 @@
       if txlock
         @addStatement "BEGIN", [], null, (tx, err) ->
           throw newSQLError "unable to begin transaction: " + err.message, err.code
-
-      # Workaround for litehelpers/Cordova-sqlite-storage#409
-      # extra statement in case user function does not add any SQL statements
-      else
-        @addStatement "SELECT 1", [], null, null
 
       return
 
@@ -425,8 +392,6 @@
 
       tropts = []
       batchExecutes = @executes
-      # NOTE: If this is zero it will not work. Workaround is applied in the constructor.
-      # FUTURE TBD: It would be better to fix the problem here.
       waiting = batchExecutes.length
       @executes = []
       tx = this
@@ -557,13 +522,7 @@
 
 ## SQLite plugin object factory:
 
-    # OLD:
     dblocations = [ "docs", "libs", "nosync" ]
-
-    iosLocationMap =
-      'default' : 'nosync'
-      'Documents' : 'docs'
-      'Library' : 'libs'
 
     SQLiteFactory =
       ###
@@ -572,58 +531,30 @@
       If this function is edited in Javascript then someone will
       have to translate it back to CoffeeScript by hand.
       ###
-      openDatabase: argsArray (args) ->
-        if args.length < 1 || !args[0]
-          throw newSQLError 'Sorry missing mandatory open arguments object in openDatabase call'
+      opendb: argsArray (args) ->
+        if args.length < 1 then return null
 
-        #first = args[0]
-        #openargs = null
-        #okcb = null
-        #errorcb = null
+        first = args[0]
+        openargs = null
+        okcb = null
+        errorcb = null
 
-        #if first.constructor == String
-        #  openargs = {name: first}
+        if first.constructor == String
+          openargs = {name: first}
 
-        #  if args.length >= 5
-        #    okcb = args[4]
-        #    if args.length > 5 then errorcb = args[5]
+          if args.length >= 5
+            okcb = args[4]
+            if args.length > 5 then errorcb = args[5]
 
-        #else
-        #  openargs = first
+        else
+          openargs = first
 
-        #  if args.length >= 2
-        #    okcb = args[1]
-        #    if args.length > 2 then errorcb = args[2]
+          if args.length >= 2
+            okcb = args[1]
+            if args.length > 2 then errorcb = args[2]
 
-        if args[0].constructor == String
-          throw newSQLError 'Sorry first openDatabase argument must be an object'
-
-        openargs = args[0]
-
-        # check here
-        if !openargs.name
-          throw newSQLError 'Database name value is missing in openDatabase call'
-
-        if !openargs.iosDatabaseLocation and !openargs.location and openargs.location isnt 0
-          throw newSQLError 'Database location or iosDatabaseLocation value is now mandatory in openDatabase call'
-
-        # XXX TODO (with test):
-        #if !!openargs.location and !!openargs.iosDatabaseLocation
-        #  throw newSQLError 'Abiguous: both location or iosDatabaseLocation values are present in openDatabase call'
-
-        dblocation =
-          if !!openargs.location and openargs.location is 'default'
-            iosLocationMap['default']
-          else if !!openargs.iosDatabaseLocation
-            iosLocationMap[openargs.iosDatabaseLocation]
-          else
-            dblocations[openargs.location]
-
-        # XXX TODO (with test):
-        #if !dblocation
-        #  throw newSQLError 'Valid iOS database location could not be determined in openDatabase call'
-
-        openargs.dblocation = dblocation
+        dblocation = if !!openargs.location then dblocations[openargs.location] else null
+        openargs.dblocation = dblocation || dblocations[0]
 
         if !!openargs.createFromLocation and openargs.createFromLocation == 1
           openargs.createFromResource = "1"
@@ -634,141 +565,26 @@
         if !!openargs.androidLockWorkaround and openargs.androidLockWorkaround == 1
           openargs.androidBugWorkaround = 1
 
-        okcb = null
-        errorcb = null
-        if args.length >= 2
-          okcb = args[1]
-          if args.length > 2 then errorcb = args[2]
-
         new SQLitePlugin openargs, okcb, errorcb
 
-      deleteDatabase: (first, success, error) ->
+      deleteDb: (first, success, error) ->
         args = {}
 
         if first.constructor == String
           #console.log "delete db name: #{first}"
-          #args.path = first
-          #args.dblocation = dblocations[0]
-          throw newSQLError 'Sorry first deleteDatabase argument must be an object'
+          args.path = first
+          args.dblocation = dblocations[0]
 
         else
           #console.log "delete db args: #{JSON.stringify first}"
           if !(first and first['name']) then throw new Error "Please specify db name"
           args.path = first.name
-          #dblocation = if !!first.location then dblocations[first.location] else null
-          #args.dblocation = dblocation || dblocations[0]
-
-        if !first.iosDatabaseLocation and !first.location and first.location isnt 0
-          throw newSQLError 'Database location or iosDatabaseLocation value is now mandatory in deleteDatabase call'
-
-        # XXX TODO (with test):
-        #if !!first.location and !!first.iosDatabaseLocation
-        #  throw newSQLError 'Abiguous: both location or iosDatabaseLocation values are present in deleteDatabase call'
-
-        dblocation =
-          if !!first.location and first.location is 'default'
-            iosLocationMap['default']
-          else if !!first.iosDatabaseLocation
-            iosLocationMap[first.iosDatabaseLocation]
-          else
-            dblocations[first.location]
-
-        # XXX TODO (with test):
-        #if !dblocation
-        #  throw newSQLError 'Valid iOS database location could not be determined in deleteDatabase call'
-
-        args.dblocation = dblocation
+          dblocation = if !!first.location then dblocations[first.location] else null
+          args.dblocation = dblocation || dblocations[0]
 
         # XXX [BUG #210] TODO: when closing or deleting a db, abort any pending transactions (with error callback)
         delete SQLitePlugin::openDBs[args.path]
         cordova.exec success, error, "SQLitePlugin", "delete", [ args ]
-
-## Self test:
-
-    SelfTest =
-      DBNAME: '___$$$___litehelpers___$$$___test___$$$___.db'
-
-      start: (successcb, errorcb) ->
-        SQLiteFactory.deleteDatabase {name: SelfTest.DBNAME, location: 'default'},
-          (-> SelfTest.start2(successcb, errorcb)),
-          (-> SelfTest.start2(successcb, errorcb))
-
-      start2: (successcb, errorcb) ->
-        SQLiteFactory.openDatabase {name: SelfTest.DBNAME, location: 'default'}, (db) ->
-          db.sqlBatch [
-            'CREATE TABLE TestTable(TestColumn);'
-            [ 'INSERT INTO TestTable (TestColumn) VALUES (?);', ['test-value'] ]
-          ], () ->
-            db.executeSql 'SELECT * FROM TestTable', [], (resutSet) ->
-              if !resutSet.rows
-                SelfTest.finishWithError errorcb, 'Missing resutSet.rows'
-                return
-
-              if !resutSet.rows.length
-                SelfTest.finishWithError errorcb, 'Missing resutSet.rows.length'
-                return
-
-              if resutSet.rows.length isnt 1
-                SelfTest.finishWithError errorcb,
-                  "Incorrect resutSet.rows.length value: #{resutSet.rows.length} (expected: 1)"
-                return
-
-              if !resutSet.rows.item(0).TestColumn
-                SelfTest.finishWithError errorcb,
-                  'Missing resutSet.rows.item(0).TestColumn'
-                return
-
-              if resutSet.rows.item(0).TestColumn isnt 'test-value'
-                SelfTest.finishWithError errorcb,
-                  "Incorrect resutSet.rows.item(0).TestColumn value: #{resutSet.rows.item(0).TestColumn} (expected: 'test-value')"
-                return
-
-              db.transaction (tx) ->
-                tx.executeSql 'UPDATE TestTable SET TestColumn = ?', ['new-value']
-              , (tx_err) ->
-                SelfTest.finishWithError errorcb, "UPDATE transaction error: #{tx_err}"
-              , () ->
-                db.readTransaction (tx2) ->
-                  tx2.executeSql 'SELECT * FROM TestTable', [], (ignored, resutSet2) ->
-                    if !resutSet2.rows
-                      throw newSQLError 'Missing resutSet.rows'
-
-                    if !resutSet2.rows.length
-                      throw newSQLError 'Missing resutSet.rows.length'
-
-                    if resutSet2.rows.length isnt 1
-                      throw newSQLError "Incorrect resutSet.rows.length value: #{resutSet.rows.length} (expected: 1)"
-
-                    if !resutSet2.rows.item(0).TestColumn
-                      throw newSQLError 'Missing resutSet.rows.item(0).TestColumn'
-
-                    if resutSet2.rows.item(0).TestColumn isnt 'new-value'
-                      throw newSQLError "Incorrect resutSet.rows.item(0).TestColumn value: #{resutSet.rows.item(0).TestColumn} (expected: 'test-value')"
-
-                , (tx2_err) ->
-                  SelfTest.finishWithError errorcb, "readTransaction error: #{tx2_err}"
-                , () ->
-                  # CLEANUP & FINISH:
-                  db.close () ->
-                    SQLiteFactory.deleteDatabase {name: SelfTest.DBNAME, location: 'default'}, successcb, (cleanup_err)->
-                      SelfTest.finishWithError errorcb, "Cleanup error: #{cleanup_err}"
-
-                  , (close_err) ->
-                    SelfTest.finishWithError errorcb, "close error: #{close_err}"
-
-            , (select_err) ->
-              SelfTest.finishWithError errorcb, "SELECT error: #{select_err}"
-
-          , (batch_err) ->
-            SelfTest.finishWithError errorcb, "sql batch error: #{batch_err}"
-
-        , (open_err) ->
-          SelfTest.finishWithError errorcb, "Open database error: #{open_err}"
-
-      finishWithError: (errorcb, message) ->
-        SQLiteFactory.deleteDatabase {name: SelfTest.DBNAME, location: 'default'}, ->
-          errorcb newSQLError message
-        , (err2)-> errorcb newSQLError "Cleanup error: #{err2} for error: #{message}"
 
 ## Exported API:
 
@@ -776,22 +592,8 @@
       sqliteFeatures:
         isSQLitePlugin: true
 
-      echoTest: (okcb, errorcb) ->
-        ok = (s) ->
-          if s is 'test-string'
-            okcb()
-          else
-            errorcb "Mismatch: got: '#{s}' expected 'test-string'"
-
-        error = (e) ->
-          errorcb e
-
-        cordova.exec okcb, errorcb, "SQLitePlugin", "echoStringValue", [{value:'test-string'}]
-
-      selfTest: SelfTest.start
-
-      openDatabase: SQLiteFactory.openDatabase
-      deleteDatabase: SQLiteFactory.deleteDatabase
+      openDatabase: SQLiteFactory.opendb
+      deleteDatabase: SQLiteFactory.deleteDb
 
 ## vim directives
 

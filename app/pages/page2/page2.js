@@ -1,5 +1,6 @@
 import {Page,NavController} from 'ionic-angular';
 import {AddAulaPage} from "../add-aula/add-aula";
+import {Aula} from '../../providers/aula/aula';
 
 
 @Page({
@@ -7,12 +8,17 @@ import {AddAulaPage} from "../add-aula/add-aula";
 })
 export class Page2 {
   static get parameters() {
-    return [[NavController]];
+    return [[NavController],[Aula]];
   }
 
-  constructor(nav) {
+  constructor(nav,AulaService) {
     this.nav = nav;
     this.view = "hoje";
+    this.AulaService = AulaService;
+    this.AulaService.getAll().subscribe((data) => {
+      console.log(data);
+      this.aula = data;
+    });
   }
 
 

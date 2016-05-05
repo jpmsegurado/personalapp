@@ -4,14 +4,47 @@
 
 <ion-content class="add-aula">
 
-  <ion-list>
-    <ion-item>
-      <ion-label>Aluno</ion-label>
-      <ion-select [(ngModel)]="aluno">
-        <ion-option value="nes">João Pedro</ion-option>
+  <form [ngFormModel]="aula"  (ngSubmit)="onSubmit(aula.value)">
+    <ion-list>
+      <ion-item>
+        <ion-label>Aluno</ion-label>
+        <ion-select [(ngModel)]="aula.aluno" >
+          <ion-option value="-1" checked="true">Escolha um aluno</ion-option>
+          <ion-option *ngFor="#aluno of alunos" value="{{aluno}}">
+            {{aluno.nome}} - {{aluno.objetivo}}
+          </ion-option>
         </ion-select>
-    </ion-item>
-  </ion-list>
+      </ion-item>
 
-
+      <ion-item >
+        <ion-label>Dia da semana</ion-label>
+        <ion-select [(ngModel)]="aula.dia" >
+          <ion-option *ngFor="#dia of dias_semana" value="{{dia}}">
+            {{dia}}
+          </ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item (click)="pickDate(aula.controls['hora_inicio'],'time')">
+        <ion-label>Hora de início</ion-label>
+        <ion-input type="text" placeholder="Ex: 13:00" [ngFormControl]="aula.controls['hora_inicio']" readonly></ion-input>
+      </ion-item>
+      <ion-item (click)="pickDate(aula.controls['hora_fim'],'time')">
+        <ion-label>Hora de fim</ion-label>
+        <ion-input placeholder="Ex: 14:00" type="text" [ngFormControl]="aula.controls['hora_fim']" readonly></ion-input>
+      </ion-item>
+      <ion-item >
+        <ion-label>Preço hora</ion-label>
+        <ion-input placeholder="Ex: 50,00" type="decimal" [ngFormControl]="aula.controls['preco_hora']" ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Preço aula</ion-label>
+        <ion-input placeholder="Ex: 100,00" type="decimal" [ngFormControl]="aula.controls['preco_aula']" ></ion-input>
+      </ion-item>
+    </ion-list>
+    <ion-row>
+      <ion-col width-80 offset-10>
+        <button type="submit"  (click)="add(aula)" full verdebtn>salvar</button>
+      </ion-col>
+    </ion-row>
+  </form>
 </ion-content>

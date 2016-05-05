@@ -58,6 +58,7 @@ gulp.task('fonts', copyFonts);
 gulp.task('scripts', function() {
   return copyScripts([
     'node_modules/es6-shim/es6-shim.min.js',
+    'node_modules/lodash/lodash.min.js',
     'node_modules/angular2/bundles/angular2-polyfills.js'
   ]);
 });
