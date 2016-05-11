@@ -1,4 +1,4 @@
-.page1, .page2, .page3, .page-4, .add-aluno-page, .add-aula {
+.page1, .page2, .page3, .page-4, .add-aluno-page, .add-aula, .add-group {
   background-color: #e6e6e6; }
 
 .black-text {
@@ -14,7 +14,7 @@
   text-align: left; }
 
 .text-center {
-  text-align: center; }
+  text-align: center !important; }
 
 .text-right {
   text-align: right; }
@@ -10352,13 +10352,18 @@ body {
   width: 14.285%;
   font-size: 14px;
   background: #fff;
-  min-height: 132px;
-  border-left: solid 1px #888;
-  border-top: solid 1px #888;
-  border-bottom: solid 1px #888; }
+  min-height: 132px; }
 
 .page2 .dia span {
   font-size: 12px; }
+
+.page2 .dia .hora span {
+  overflow: hidden;
+  text-overflow: ellipsis !important;
+  white-space: nowrap;
+  width: 100%;
+  margin-top: 3px;
+  display: block; }
 
 .page2 .dia .hora {
   margin-bottom: 10px;
@@ -10367,14 +10372,16 @@ body {
 .page2 .dia .hora:first-of-type {
   margin-top: 5px; }
 
+.page2 .schedule {
+  float: left;
+  width: 100%;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12); }
+
 .page2 .dia .hora:nth-child(odd) {
   background-color: #888; }
 
 .page2 .dia .hora:nth-child(even) {
   background-color: #ff0; }
-
-.page2 .dia:last-of-type {
-  border-right: solid 1px #888; }
 
 .page2 .horario {
   position: absolute;
@@ -10425,6 +10432,9 @@ body {
 .add-aluno-page ion-list .item-inner {
   border-bottom: 1px solid #bbb; }
 
+.add-aluno-page ion-input input {
+  text-align: right; }
+
 .add-aula scroll-content {
   padding-bottom: 0 !important; }
 
@@ -10440,5 +10450,29 @@ body {
 .add-aula ion-list .item-inner {
   border-bottom: 1px solid #bbb; }
 
+.add-aula ion-item .item-cover {
+  padding-left: 10px !important; }
+
+.add-aula .item-select ion-label {
+  padding-left: 8px !important; }
+
 .add-aula ion-input input {
-  text-align: right !important; }
+  text-align: right; }
+
+.add-group scroll-content {
+  padding-bottom: 0 !important; }
+
+.add-group ion-list, .add-group ion-input, .add-group ion-item {
+  background-color: #e6e6e6 !important; }
+
+.add-group ion-list > .item:first-child, .add-group ion-list > ion-item-sliding:first-child .item {
+  border-top: 1px solid #bbb; }
+
+.add-group ion-list > .item:last-child, .add-group ion-list > ion-item-sliding:last-child .item {
+  border-bottom: 1px solid #bbb; }
+
+.add-group ion-list .item-inner {
+  border-bottom: 1px solid #bbb; }
+
+.add-group ion-item .item-cover {
+  padding-left: 10px !important; }

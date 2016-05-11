@@ -1,6 +1,7 @@
 import {Page,NavController} from 'ionic-angular';
 import {AddAlunoPage} from "../add-aluno/add-aluno";
-import {Aluno} from '../../providers/aluno/aluno';
+import {Grupo} from '../../providers/grupo/grupo';
+import {AddGroupPage} from '../add-group/add-group';
 
 
 @Page({
@@ -8,24 +9,26 @@ import {Aluno} from '../../providers/aluno/aluno';
 })
 export class Page3 {
   static get parameters() {
-    return [[NavController],[Aluno]];
+    return [[NavController],[Grupo]];
   }
 
-  constructor(nav,AlunoService) {
+  constructor(nav,GrupoService) {
     this.nav = nav;
-    this.AlunoService = AlunoService;
     this.view = "alunos";
-    this.AlunoService.getAll().subscribe((data) => {
-      this.alunos = data;
-    });
+    this.GrupoService = GrupoService;
   }
 
   onPageWillEnter(){
-    this.AlunoService.getAll().subscribe((data) => {
+    this.GrupoService.getAll().subscribe((data) => {
       console.log(data);
-      this.alunos = data;
+      this.alunos = [];
     });
   }
+
+  groups(){
+    this.nav.push(AddGroupPage);
+  }
+
   onSegmentChanged(event){
     this.view = event.value;
   }

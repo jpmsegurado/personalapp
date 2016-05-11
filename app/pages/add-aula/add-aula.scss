@@ -18,7 +18,16 @@
     border-bottom: 1px solid #bbb;
   }
 
-  ion-input input{
-    text-align: right !important;
+  ion-item .item-cover{
+    padding-left: 10px !important;
   }
+
+  .item-select ion-label{
+    padding-left: 8px !important;
+  }
+
+  ion-input input{
+    text-align: right;
+  }
+
 }

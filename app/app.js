@@ -4,8 +4,7 @@ import {StatusBar} from 'ionic-native';
 import {TabsPage} from './pages/tabs/tabs';
 import {AddAulaPage} from './pages/add-aula/add-aula';
 import {Facebook} from 'ionic-native';
-import {Aluno} from './providers/aluno/aluno';
-import {Aula} from './providers/aula/aula';
+import {Grupo} from './providers/grupo/grupo';
 import {Mask} from './components/mask/mask';
 import PouchDB from '../node_modules/pouchdb/dist/pouchdb';
 
@@ -14,7 +13,7 @@ import PouchDB from '../node_modules/pouchdb/dist/pouchdb';
   templateUrl: 'build/pages/app.html',
   config: {tabbarPlacement: 'bottom'},
   diretives:[Mask],
-  providers : [Aluno,Aula]
+  providers : [Grupo]
 })
 export class MyApp {
   static get parameters() {

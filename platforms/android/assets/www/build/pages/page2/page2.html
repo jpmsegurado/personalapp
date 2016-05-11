@@ -21,36 +21,38 @@
     <div *ngIf="view == 'hoje'" padding-top>
 
       <h2 class="gray-text">Foram Realizadas hoje?</h2>
-
-      <ion-card class="todo-card" *ngFor="#aula of aulas">
-        <div class="card-wrapper">
-          <ion-card-content>
-            <h2 class="bold no-text-overlow">{{aula.aluno.nome}} - {{aula.aluno.objetivo}}</h2>
-            <p class="no-text-overlow">
-              {{aula.hora_inicio}} - {{aula.hora_fim}}
-            </p>
-            <div class="button-actions">
-              <button clear primary>Remarcar</button>
-              <button clear danger>Não</button>
-              <button clear verdebtn>Sim</button>
-            </div>
-          </ion-card-content>
-        </div>
-      </ion-card>
-
-
+      <div *ngFor="#aula of aulas ">
+        <ion-card class="todo-card" *ngIf="aula.aluno != null">
+          <div class="card-wrapper">
+            <ion-card-content>
+              <h2 class="bold no-text-overlow">{{aula.aluno.nome}} - {{aula.aluno.objetivo}}</h2>
+              <p class="no-text-overlow">
+                {{aula.hora_inicio.value}} - {{aula.hora_fim.value}}
+              </p>
+              <div class="button-actions">
+                <button clear primary>Remarcar</button>
+                <button clear danger>Não</button>
+                <button clear verdebtn>Sim</button>
+              </div>
+            </ion-card-content>
+          </div>
+        </ion-card>
+      </div>
     </div>
 
 
     <div *ngIf="view == 'semanal'">
       <br />
-      <div *ngFor="#dia of dias_semana" class="dia text-center">
-        {{dia.title.substring(0,3)}}
-        <div *ngFor="#horario of getAulas(dia.aulas)" class="hora">
-          {{horario.title}}
-          <br />
-          <span *ngIf="horario.qtd == 1">{{horario.qtd}} aluno</span>
-          <span *ngIf="horario.qtd > 1">{{horario.qtd}} alunos</span>
+      <div class="schedule">
+        <div *ngFor="#dia of dias_semana" class="dia text-center">
+          {{dia.title.substring(0,3)}}
+          <div *ngFor="#horario of getAulas(dia.aulas)" class="hora">
+            {{horario.title}}
+            <br />
+            <span *ngIf="horario.qtd == 1 && isInt(horario.qtd)">{{horario.qtd}} aluno</span>
+            <span *ngIf="horario.qtd > 1 && isInt(horario.qtd)">{{horario.qtd}} alunos</span>
+            <span *ngIf="!isInt(horario.qtd)">{{horario.qtd}}</span>
+          </div>
         </div>
       </div>
     </div>

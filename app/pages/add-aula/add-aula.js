@@ -1,6 +1,5 @@
 import {Page, NavController} from 'ionic-angular';
-import {Aluno} from '../../providers/aluno/aluno';
-import {Aula} from '../../providers/aula/aula';
+import {Grupo} from '../../providers/grupo/grupo';
 import {DatePicker} from 'ionic-native';
 
 @Page({
@@ -8,26 +7,37 @@ import {DatePicker} from 'ionic-native';
 })
 export class AddAulaPage {
   static get parameters() {
-    return [[NavController],[Aluno],[Aula]];
+    return [[NavController],[Grupo]];
   }
 
-  constructor(nav,AlunoService,AulaService) {
+  constructor(nav,GrupoService) {
     this.nav = nav;
-    this.AlunoService = AlunoService;
-    this.AulaService = AulaService;
-    this.AlunoService.getAll().subscribe((data) => {
-      console.log(data);
-      this.alunos = data;
+    this.GrupoService = GrupoService;
+
+    this.GrupoService.getAll().subscribe((data) => {
+      // this.grupos = data;
+      this.grupos = [];
+      this.alunos = [];
+      data.forEach((item) => {
+        if(item.nome.length > 0){
+          this.grupos.push(item);
+        }else{
+          this.alunos.push(item);
+        }
+      });
+
     });
 
+    this.view = "aluno";
 
     this.aula = {
-      alunoId:-1,
-      dia:"Segunda",
-      hora_inicio:"",
-      hora_fim:"",
-      preco_aula:"",
-      preco_hora:""
+      alunoId:{value:-1,required:true},
+      grupoId:{value: -1,required:true},
+      dia:{value:"Segunda",required:true},
+      hora_inicio:{value:"",required:true},
+      hora_fim:{value:"",required:true},
+      preco_aula:{value:"",required:true},
+      preco_hora:{value:"",required:true}
     };
     this.dias_semana = [
       'Segunda',
@@ -42,32 +52,78 @@ export class AddAulaPage {
   }
 
 
+  onSegmentChanged(event){
+    this.view = event.value;
+  }
+
   change(aula){
-    let alunoIndex = this.AlunoService._findIndex(this.alunos,aula.alunoId);
-    aula.aluno = this.alunos[alunoIndex];
+    let alunoIndex = this.GrupoService._findIndex(this.alunos,aula.alunoId.value);
+    this.aluno = this.alunos[alunoIndex];
+  }
+
+  changeGrupo(aula){
+    let grupoIndex = this.GrupoService._findIndex(this.grupos,aula.grupoId.value);
+    this.grupo = this.grupos[grupoIndex];
   }
 
   add(aula){
-
     for(var atr in aula){
-      if((aula[atr] == undefined || aula[atr].length == 0) && window.cordova){
-        navigator.notification.alert(
-            'Há campos vazios, por favor preencha-os.',  // message
-            function(){},         // callback
-            'Atenção',            // title
-            'ok'                  // buttonName
-        );
-        return;
-      }else if((aula[atr] == undefined || aula[atr].length == 0) && !window.cordova){
-        alert("Por favor, preencha os campos vazios.");
-        return;
+      let isRequired = aula[atr].required != undefined ? true : false;
+      if(isRequired){
+        if((aula[atr].value == undefined || aula[atr].value.length == 0) && window.cordova){
+          navigator.notification.alert(
+              'Há campos vazios, por favor preencha-os.',  // message
+              function(){},         // callback
+              'Atenção',            // title
+              'ok'                  // buttonName
+          );
+          return;
+        }else if((aula[atr].value == undefined || aula[atr].value.length == 0) && !window.cordova){
+          alert("Por favor, preencha os campos vazios.");
+          return;
+        }
       }
-
     }
 
-    this.AulaService.add(aula).subscribe(() => {
-      // this.nav.pop();
-    });
+    let date = new Date();
+    let components = [
+        date.getYear(),
+        date.getMonth(),
+        date.getDate(),
+        date.getHours(),
+        date.getMinutes(),
+        date.getSeconds(),
+        date.getMilliseconds()
+    ];
+
+    let id = components.join("");
+
+    let newAula = {
+      id:id,
+      hora_inicio:aula.hora_inicio.value,
+      hora_fim:aula.hora_fim.value,
+      dia:aula.dia.value,
+      preco_aula:aula.preco_aula.value,
+      preco_hora:aula.preco_hora.value
+    };
+
+
+    if(this.view == 'aluno'){
+      this.grupo = null;
+      this.change(aula);
+      this.aluno.horarios.push(newAula);
+      this.GrupoService.update(this.aluno).subscribe((data) => {
+        this.nav.pop();
+      });
+    }else{
+      this.aluno = null;
+      this.changeGrupo(aula);
+      this.grupo.horarios.push(newAula);
+      this.GrupoService.update(this.grupo).subscribe((data) => {
+        this.nav.pop();
+      });
+    }
+
   }
 
   pickDate(){

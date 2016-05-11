@@ -42,7 +42,7 @@ $tab-button-md-active-color:#650816;
 $tab-button-ios-active-color:#650816;
 $item-md-note-color:#000;
 
-.page1,.page2,.page3,.page-4,.add-aluno-page,.add-aula{
+.page1,.page2,.page3,.page-4,.add-aluno-page,.add-aula,.add-group{
   background-color: #e6e6e6;
 }
 
@@ -63,7 +63,7 @@ $item-md-note-color:#000;
 }
 
 .text-center{
-  text-align: center;
+  text-align: center !important;
 }
 .text-right{
   text-align: right;

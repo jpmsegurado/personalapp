@@ -3,12 +3,18 @@
 </ion-navbar>
 
 <ion-content class="add-aula">
+  <div>
+    <ion-segment dark (change)="onSegmentChanged($event)">
+      <ion-segment-button value="aluno" class="segment-activated">Aula para aluno</ion-segment-button>
+      <ion-segment-button value="grupo">Aula para um grupo</ion-segment-button>
+    </ion-segment>
+  </div>
 
-  <form>
+  <form *ngIf="view == 'aluno' ">
     <ion-list>
       <ion-item>
-        <ion-label>Aluno</ion-label>
-        <ion-select [(ngModel)]="aula.alunoId" (change)="change(aula)">
+        <ion-label inset>Aluno</ion-label>
+        <ion-select [(ngModel)]="aula.alunoId.value" (change)="change(aula)">
           <ion-option *ngFor="#aluno of alunos;" value="{{aluno._id}}">
             {{aluno.nome}} - {{aluno.objetivo}}
           </ion-option>
@@ -16,28 +22,28 @@
       </ion-item>
 
       <ion-item >
-        <ion-label>Dia da semana</ion-label>
-        <ion-select [(ngModel)]="aula.dia" >
+        <ion-label inset>Dia da semana</ion-label>
+        <ion-select [(ngModel)]="aula.dia.value" >
           <ion-option *ngFor="#dia of dias_semana" value="{{dia}}">
             {{dia}}
           </ion-option>
         </ion-select>
       </ion-item>
       <ion-item>
-        <ion-label>Hora de início</ion-label>
-        <ion-input type="text" placeholder="Ex: 13:00" [(ngModel)]="aula.hora_inicio" ></ion-input>
+        <ion-label inset>Hora de Início</ion-label>
+        <ion-input class="text-center" type="text" [(ngModel)]="aula.hora_inicio.value" ></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label>Hora de fim</ion-label>
-        <ion-input placeholder="Ex: 14:00" type="text" [(ngModel)]="aula.hora_fim" ></ion-input>
+        <ion-label inset>Hora de término</ion-label>
+        <ion-input class="text-center" type="text" [(ngModel)]="aula.hora_fim.value" ></ion-input>
       </ion-item>
       <ion-item >
-        <ion-label>Preço hora</ion-label>
-        <ion-input placeholder="Ex: 50,00" type="text" [(ngModel)]="aula.preco_hora"></ion-input>
+        <ion-label inset> Preço hora</ion-label>
+        <ion-input type="text" [(ngModel)]="aula.preco_hora.value"></ion-input>
       </ion-item>
-      <ion-item>
-        <ion-label>Preço aula</ion-label>
-        <ion-input placeholder="Ex: 100,00" type="text" [(ngModel)]="aula.preco_aula"></ion-input>
+      <ion-item >
+        <ion-label inset> Preço aula</ion-label>
+        <ion-input type="text" [(ngModel)]="aula.preco_aula.value"></ion-input>
       </ion-item>
     </ion-list>
     <ion-row>
@@ -46,4 +52,49 @@
       </ion-col>
     </ion-row>
   </form>
+
+  <form *ngIf="view == 'grupo' ">
+    <ion-list>
+      <ion-item>
+        <ion-label inset>Grupo</ion-label>
+        <ion-select [(ngModel)]="aula.grupoId.value" (change)="changeGrupo(aula)">
+          <ion-option *ngFor="#group of grupos;" value="{{group._id}}">
+            {{group.title}}
+          </ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item >
+        <ion-label inset>Dia da semana</ion-label>
+        <ion-select [(ngModel)]="aula.dia.value" >
+          <ion-option *ngFor="#dia of dias_semana" value="{{dia}}">
+            {{dia}}
+          </ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label inset>Hora de Início</ion-label>
+        <ion-input class="text-center" type="text" [(ngModel)]="aula.hora_inicio.value" ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label inset>Hora de término</ion-label>
+        <ion-input class="text-center" type="text" [(ngModel)]="aula.hora_fim.value" ></ion-input>
+      </ion-item>
+      <ion-item >
+        <ion-label inset> Preço hora</ion-label>
+        <ion-input type="text" [(ngModel)]="aula.preco_hora.value"></ion-input>
+      </ion-item>
+      <ion-item >
+        <ion-label inset> Preço aula</ion-label>
+        <ion-input type="text" [(ngModel)]="aula.preco_aula.value"></ion-input>
+      </ion-item>
+    </ion-list>
+    <ion-row>
+      <ion-col width-80 offset-10>
+        <button (click)="add(aula)" full verdebtn>salvar</button>
+      </ion-col>
+    </ion-row>
+  </form>
+
+
 </ion-content>

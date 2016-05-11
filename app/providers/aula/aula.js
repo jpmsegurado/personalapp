@@ -10,7 +10,7 @@ import * as _ from 'lodash';
 @Injectable()
 export class Aula {
   constructor() {
-    this._db = window.cordova ? new PouchDB('Aula', {adapter: 'websql'}) : new PouchDB('Aula');
+    this._db = window.cordova ? new PouchDB('aula', {adapter: 'websql'}) : new PouchDB('aula');
     this._results;
 
     this.whenUnblocked = this.getAll();
