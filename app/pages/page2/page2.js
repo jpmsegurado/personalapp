@@ -24,6 +24,31 @@ export class Page2 {
       {title: 'Domingo',aulas:{}}
     ];
 
+    var d = new Date();
+    var n = d.getDay();
+    switch(n){
+      case 0:
+        this.hoje = "Domingo";
+        break;
+      case 1:
+        this.hoje = "Segunda";
+        break;
+      case 2:
+        this.hoje = "Terça";
+        break;
+      case 3:
+        this.hoje = "Quarta";
+        break;
+      case 4:
+        this.hoje = "Quinta";
+        break;
+      case 5:
+        this.hoje = "Sexta";
+        break;
+      case 6:
+        this.hoje = "Sábado";
+        break;
+    }
     this.GrupoService = GrupoService;
     this.GrupoService.getAll().subscribe((data) => {
       this.grupos = data;
@@ -84,9 +109,73 @@ export class Page2 {
     this.nav.push(AddAulaPage);
   }
 
+  matchDay(horario,dia){
+    console.log(horario);
+    console.log(dia);
+    if(horario != undefined){
+      if(horario.dia == dia){
+        return true;
+      }
+    }
+    return false;
+  }
   onSegmentChanged(event){
     this.view = event.value;
   }
 
+  confirmarAula(grupo,aula){
+
+    let date = new Date();
+    let dia = date.getDate();
+    let mes = date.getMonth() + 1;
+    let ano = date.getYear() + 1900;
+    if(dia < 10){
+      dia = "0"+dia;
+    }
+
+    if(mes < 10){
+      mes = "0"+mes;
+    }
+
+    let today = dia+"/"+mes+"/"+ano;
+
+    grupo.alunos.forEach((aluno) => {
+      let newAula = {
+        aluno:aluno,
+        aula:aula.id,
+        valor:aula.preco_aula,
+        realizada: true,
+        data_realizada:today,
+        data_pagamento:null
+      };
+      grupo.aulas.push(newAula);
+    });
+
+    this.GrupoService.update(grupo).subscribe((data) => {
+      console.log(data);
+    });
+  }
+
+  foiRealizada(grupo,aula){
+    let realizada = false;
+    grupo.aulas.forEach((item) => {
+      realizada = item.aula == aula.id ? true : realizada;
+    });
+
+    return realizada;
+  }
+
+  sort(array){
+    array.sort((a,b) => {
+      if (a.hora_inicio < b.hora_inicio)
+        return -1;
+      else if (a.hora_inicio > b.hora_inicio)
+        return 1;
+      else
+        return 0;
+    });
+
+    return array;
+  }
 
 }

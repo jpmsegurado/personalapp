@@ -15,8 +15,8 @@
       <ion-item>
         <ion-label inset>Aluno</ion-label>
         <ion-select [(ngModel)]="aula.alunoId.value" (change)="change(aula)">
-          <ion-option *ngFor="#aluno of alunos;" value="{{aluno._id}}">
-            {{aluno.nome}} - {{aluno.objetivo}}
+          <ion-option *ngFor="#item of alunos;" value="{{item._id}}">
+            {{item.alunos[0].nome}} - {{item.alunos[0].objetivo}}
           </ion-option>
         </ion-select>
       </ion-item>
@@ -59,7 +59,7 @@
         <ion-label inset>Grupo</ion-label>
         <ion-select [(ngModel)]="aula.grupoId.value" (change)="changeGrupo(aula)">
           <ion-option *ngFor="#group of grupos;" value="{{group._id}}">
-            {{group.title}}
+            {{group.nome}}
           </ion-option>
         </ion-select>
       </ion-item>

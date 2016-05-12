@@ -1,6 +1,10 @@
 .page1, .page2, .page3, .page-4, .add-aluno-page, .add-aula, .add-group {
   background-color: #e6e6e6; }
 
+ion-card {
+  margin: 10px 0 !important;
+  width: 100% !important; }
+
 .black-text {
   color: #151515; }
 
@@ -10416,6 +10420,29 @@ body {
   bottom: 0;
   margin: auto !important;
   height: 20px; }
+
+.page-4 .valor-nao-recebido {
+  position: absolute;
+  top: 0px;
+  right: 0px; }
+
+.page-4 .status-nao-recebido {
+  position: absolute;
+  top: 22px;
+  right: 0px; }
+
+.page-4 .button-actions {
+  position: absolute;
+  top: 61px;
+  left: 0;
+  right: 0;
+  margin: auto; }
+
+.page-4 .button-actions button {
+  float: right; }
+
+.page-4 .todo-card {
+  height: 105px; }
 
 .add-aluno-page scroll-content {
   padding-bottom: 0 !important; }
