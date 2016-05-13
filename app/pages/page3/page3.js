@@ -2,6 +2,7 @@ import {Page,NavController} from 'ionic-angular';
 import {AddAlunoPage} from "../add-aluno/add-aluno";
 import {Grupo} from '../../providers/grupo/grupo';
 import {AddGroupPage} from '../add-group/add-group';
+import {NgZone} from 'angular2/core';
 
 
 @Page({
@@ -9,20 +10,24 @@ import {AddGroupPage} from '../add-group/add-group';
 })
 export class Page3 {
   static get parameters() {
-    return [[NavController],[Grupo]];
+    return [[NavController],[Grupo],[NgZone]];
   }
 
-  constructor(nav,GrupoService) {
+  constructor(nav,GrupoService,zone) {
     this.nav = nav;
+    this.zone = zone;
     this.view = "alunos";
     this.GrupoService = GrupoService;
   }
 
   onPageWillEnter(){
-    this.GrupoService.getAll().subscribe((data) => {
-      console.log(data);
-      this.alunos = [];
-    });
+    setTimeout(() =>{
+      this.zone.run(() => {
+        this.GrupoService.getAll().subscribe((data) => {
+          this.grupos = data;
+        });
+      });
+    },50);
   }
 
   groups(){

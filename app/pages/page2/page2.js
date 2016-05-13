@@ -1,6 +1,7 @@
 import {Page,NavController} from 'ionic-angular';
 import {AddAulaPage} from "../add-aula/add-aula";
 import {Grupo} from '../../providers/grupo/grupo';
+import {NgZone} from 'angular2/core';
 
 
 @Page({
@@ -8,11 +9,12 @@ import {Grupo} from '../../providers/grupo/grupo';
 })
 export class Page2 {
   static get parameters() {
-    return [[NavController],[Grupo]];
+    return [[NavController],[Grupo],[NgZone]];
   }
 
-  constructor(nav,GrupoService) {
+  constructor(nav,GrupoService,zone) {
     this.nav = nav;
+    this.zone = zone;
     this.view = "hoje";
     this.dias_semana = [
       {title: 'Segunda',aulas:{}},
@@ -50,29 +52,18 @@ export class Page2 {
         break;
     }
     this.GrupoService = GrupoService;
-    this.GrupoService.getAll().subscribe((data) => {
-      this.grupos = data;
-      console.log(data);
-    });
 
   }
 
 
   onPageWillEnter(){
-    // this.AulaService.getAll().subscribe((data) => {
-    //   console.log(data);
-    //   data.forEach((item) => {
-    //     this.dias_semana.forEach((dia) =>{
-    //       if(dia.aulas[item.hora_inicio.value] == undefined && item.dia.value == dia.title){
-    //         dia.aulas[item.hora_inicio.value] = [];
-    //       }
-    //       if(item.dia.value == dia.title && dia.aulas[item.hora_inicio.value].indexOf(item) == -1){
-    //         dia.aulas[item.hora_inicio.value].push(item);
-    //       }
-    //     });
-    //   });
-    //   this.aulas = data;
-    //});
+    setTimeout(() =>{
+      this.zone.run(() => {
+        this.GrupoService.getAll().subscribe((data) => {
+          this.grupos = data;
+        });
+      });
+    },50);
   }
 
   getAulas(obj){

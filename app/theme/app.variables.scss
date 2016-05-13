@@ -28,18 +28,19 @@ $colors: (
   dark:       #222,
   vermelho:   #f42b3e,
   verdebtn:   #38af63,
+  cinzabar:   #474f52,
   cinzabg:    #e6e6e6,
   favorite:   #69BB7B
 );
 
-$toolbar-background:#f42b3e;
-$toolbar-md-text-color:#000;
-$toolbar-ios-text-color:#000;
-$tabbar-md-background:#f42b3e;
-$tab-button-md-inactive-color:#a00e1c;
-$tab-button-ios-inactive-color:#a00e1c;
-$tab-button-md-active-color:#650816;
-$tab-button-ios-active-color:#650816;
+$toolbar-background:#474f52;
+$toolbar-md-text-color:#fff;
+$toolbar-ios-text-color:#fff;
+$tabbar-md-background:#474f52;
+$tab-button-md-inactive-color:#aaa;
+$tab-button-ios-inactive-color:#aaa;
+$tab-button-md-active-color:#fff;
+$tab-button-ios-active-color:#fff;
 $item-md-note-color:#000;
 
 .page1,.page2,.page3,.page-4,.add-aluno-page,.add-aula,.add-group{
@@ -72,6 +73,14 @@ ion-card{
 }
 .text-right{
   text-align: right;
+}
+
+.white-text{
+  color: #fff !important;
+}
+
+.white-text * {
+  color: #fff !important;
 }
 
 .green-text{
