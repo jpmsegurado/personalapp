@@ -2,15 +2,21 @@
 
 <ion-content padding class="page-4">
 
-  <ion-row>
+  <ion-row class="month-buttons">
     <ion-col>
-      <button clear dark class="gray-text text-center" (click)="previousMonth()">{{arrMeses[mes - 2].substring(0,3)}} {{ano.toString().substring(2,4)}}</button>
+      <button clear dark class="gray-text text-center" (click)="previousMonth()">
+        <ion-icon name="ios-arrow-back"></ion-icon>
+      </button>
+      <!-- <button clear dark class="gray-text text-center" (click)="previousMonth()">{{arrMeses[mes - 2].substring(0,3)}} {{ano.toString().substring(2,4)}}</button> -->
     </ion-col>
     <ion-col>
       <button clear dark class="text-center bold">{{arrMeses[mes - 1].substring(0,3)}} {{ano.toString().substring(2,4)}}</button>
     </ion-col>
     <ion-col>
-      <button clear dark class="gray-text text-center" (click)="nextMonth()">{{arrMeses[mes].substring(0,3)}} {{ano.toString().substring(2,4)}}</button>
+      <button clear dark class="gray-text text-center" (click)="nextMonth()">
+        <ion-icon name="ios-arrow-forward"></ion-icon>
+      </button>
+      <!-- <button clear dark class="gray-text text-center" (click)="nextMonth()">{{arrMeses[mes].substring(0,3)}} {{ano.toString().substring(2,4)}}</button> -->
     </ion-col>
   </ion-row>
 

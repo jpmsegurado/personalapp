@@ -68,6 +68,34 @@ module.exports = [
         "clobbers": [
             "datePicker"
         ]
+    },
+    {
+        "file": "plugins/cordova-fabric-plugin/www/FabricPlugin.js",
+        "id": "cordova-fabric-plugin.FabricPlugin",
+        "clobbers": [
+            "window.fabric.core"
+        ]
+    },
+    {
+        "file": "plugins/cordova-fabric-plugin/www/FabricPlugin.Answers.js",
+        "id": "cordova-fabric-plugin.FabricAnswersPlugin",
+        "clobbers": [
+            "window.fabric.Answers"
+        ]
+    },
+    {
+        "file": "plugins/cordova-fabric-plugin/www/FabricPlugin.Crashlytics.js",
+        "id": "cordova-fabric-plugin.FabricCrashlyticsPlugin",
+        "clobbers": [
+            "window.fabric.Crashlytics"
+        ]
+    },
+    {
+        "file": "plugins/com.apptentive.cordova/www/ApptentiveAndroid.js",
+        "id": "com.apptentive.cordova.Apptentive",
+        "clobbers": [
+            "Apptentive"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -82,7 +110,9 @@ module.exports.metadata =
     "ionic-plugin-keyboard": "2.0.1",
     "cordova-plugin-dialogs": "1.2.1",
     "cordova-sqlite-storage": "0.7.14",
-    "cordova-plugin-datepicker": "0.9.3"
+    "cordova-plugin-datepicker": "0.9.3",
+    "cordova-fabric-plugin": "1.0.7",
+    "com.apptentive.cordova": "3.0.0"
 };
 // BOTTOM OF METADATA
 });

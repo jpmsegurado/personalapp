@@ -56,6 +56,24 @@ export class AddAulaPage {
     this.view = event.value;
   }
 
+  getHour(str){
+    DatePicker.show({
+      date: new Date(),
+      mode: 'time',
+      androidTheme : 4,
+      is24Hour:true
+    },(date) => {
+      if(str == 'inicio'){
+        this.aula.hora_inicio = date.getHours()+":"+date.getMinutes();
+      }else{
+        this.aula.hora_fim = date.getHours()+":"+date.getMinutes();
+      }
+    },
+    (err) =>{
+      console.log(err);
+    });
+  }
+
   change(aula){
     let alunoIndex = this.GrupoService._findIndex(this.alunos,aula.alunoId.value);
     this.aluno = this.alunos[alunoIndex];
@@ -113,6 +131,7 @@ export class AddAulaPage {
       this.change(aula);
       this.aluno.horarios.push(newAula);
       this.GrupoService.update(this.aluno).subscribe((data) => {
+        window.fabric && window.fabric.Answers.sendCustomEvent("newAula", newAula);
         this.nav.pop();
       });
     }else{
@@ -120,20 +139,12 @@ export class AddAulaPage {
       this.changeGrupo(aula);
       this.grupo.horarios.push(newAula);
       this.GrupoService.update(this.grupo).subscribe((data) => {
+        window.fabric && window.fabric.Answers.sendCustomEvent("newAula", newAula);
         this.nav.pop();
       });
     }
 
   }
 
-  pickDate(){
-    DatePicker.show({
-      date: new Date(),
-      mode: 'time'
-    }).then(
-      date => console.log("Got date: ", date),
-      err => console.log("Error occurred while getting date:", err)
-    );
-  }
 
 }

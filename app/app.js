@@ -6,6 +6,7 @@ import {AddAulaPage} from './pages/add-aula/add-aula';
 import {Facebook} from 'ionic-native';
 import {Grupo} from './providers/grupo/grupo';
 import {Mask} from './components/mask/mask';
+import {IntroPage} from './pages/intro/intro';
 import PouchDB from '../node_modules/pouchdb/dist/pouchdb';
 
 
@@ -25,35 +26,35 @@ export class MyApp {
     this.menu = menu;
     this.local = new Storage(LocalStorage);
 
-  }
+    this.local.get('novousuario').then((result) => {
+        if(result){
+            this.rootPage = TabsPage;
+        } else {
+            this.local.set('novousuario', true);
+            this.rootPage = IntroPage;
+        }
 
-  login(){
-    if(this.local.get("userId") != undefined){
-      Facebook.api("/me",['email','public_profile']).then((resp) => {
+    });
 
-      });
-
-      return;
+    if(window.cordova){
+      let app = {
+        initialize: function() {
+            document.addEventListener('deviceready', app.onDeviceReady, false);
+        },
+        onDeviceReady: function() {
+            document.addEventListener('resume', app.onResume, false);
+            document.addEventListener('pause', app.onPause, false);
+            Apptentive.deviceReady(app.successLogger, app.errorAlert);
+        },
+        onResume: function() {
+            Apptentive.resume(app.successLogger, app.errorAlert);
+        },
+        onPause: function() {
+            Apptentive.pause(app.successLogger, app.errorAlert);
+        }
+      };
+      app.initialize();
     }
-    Facebook.login(['email','public_profile']).then((data) => {
-        this.local.set("userId",data.authResponse.userID);
-        this.local.set("userEmail","jpmsegurado@gmail.com");
-        // var credentials = {
-        //   email : "user@stamplay.com",
-        //   password : "my_password"
-        // }
-        //
-        // Stamplay.User.signup(credentials)
-        //   .then(function(res) {
-        //     console.log(res);
-        //   }, function(err) {
-        //     // error
-        //   });
-      }, (...args) => {
-        console.log(args);
-      });
-
-
 
   }
 }

@@ -10728,6 +10728,9 @@ body {
   font-size: 1.4rem;
   background-color: #fff; }
 
+.page1 ion-card {
+  height: 200px; }
+
 .page2 .dia {
   float: left;
   width: 14.285%;
@@ -10822,6 +10825,10 @@ body {
 .page-4 .todo-card {
   height: 105px; }
 
+.page-4 .month-buttons .gray-text {
+  display: block;
+  margin: 0 auto !important; }
+
 .add-aluno-page scroll-content {
   padding-bottom: 0 !important; }
 
@@ -10881,3 +10888,59 @@ body {
 
 .add-group ion-item .item-cover {
   padding-left: 10px !important; }
+
+.myChart #chart {
+  float: left;
+  width: 100%;
+  height: 100%; }
+
+ion-slides {
+  background-color: #e5e5e5;
+  background: -webkit-linear-gradient(top, rgba(229, 229, 229, 0.74) 0%, rgba(181, 181, 181, 0.1) 100%);
+  background: linear-gradient(to bottom, rgba(229, 229, 229, 0.74) 0%, rgba(181, 181, 181, 0.1) 100%); }
+
+.cover {
+  height: 50vh !important;
+  max-height: 80% !important;
+  width: auto !important;
+  -webkit-animation: fadein 2s;
+  /* Safari, Chrome and Opera > 12.1 */
+  /* Firefox < 16 */
+  /* Internet Explorer */
+  /* Opera < 12.1 */
+  animation: fadein 2s; }
+
+.slideothers {
+  max-height: 400px !important; }
+
+.slidelast {
+  max-height: 350px !important; }
+
+.btgo {
+  color: #fff !important;
+  background: #fac359;
+  /* Old browsers */
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #fac359 0%, #fb4e25 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #fac359 0%, #fb4e25 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */ }
+
+@keyframes fadein {
+  from {
+    opacity: 0; }
+  to {
+    opacity: 1; } }
+
+/* Firefox < 16 */
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+  from {
+    opacity: 0; }
+  to {
+    opacity: 1; } }
+
+/* Internet Explorer */
+
+/* Opera < 12.1 */

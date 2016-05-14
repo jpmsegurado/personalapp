@@ -63,6 +63,14 @@
                         {
                             "xml": "<feature name=\"DatePickerPlugin\"><param name=\"android-package\" value=\"com.plugin.datepicker.DatePickerPlugin\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"FabricPlugin\"><param name=\"android-package\" value=\"com.sarriaroman.fabric.FabricPlugin\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"ApptentiveBridge\"><param name=\"android-package\" value=\"com.apptentive.cordova.ApptentiveBridge\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -94,6 +102,32 @@
                         },
                         {
                             "xml": "<activity android:configChanges=\"keyboard|keyboardHidden|screenLayout|screenSize|orientation\" android:label=\"@string/fb_app_name\" android:name=\"com.facebook.FacebookActivity\" android:theme=\"@android:style/Theme.Translucent.NoTitleBar\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<meta-data android:name=\"io.fabric.ApiKey\" android:value=\"d2addebbc0bda6d0b52c6e4cb075cb05ac7cfe08\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<meta-data android:name=\"apptentive_api_key\" android:value=\"b7db795570dc7c139da952a380727fca501e57a21107b3e656b7ebe7203c49f4\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<meta-data android:name=\"apptentive_sdk_distribution\" android:value=\"Cordova\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<meta-data android:name=\"apptentive_sdk_distribution_version\" android:value=\"3.0.0\" />",
+                            "count": 1
+                        }
+                    ],
+                    "/*": [
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.INTERNET\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<supports-screens android:anyDensity=\"true\" android:largeScreens=\"true\" android:normalScreens=\"true\" android:smallScreens=\"true\" android:xlargeScreens=\"true\" />",
                             "count": 1
                         }
                     ]
@@ -132,6 +166,15 @@
             "PACKAGE_NAME": "br.com.personalapp"
         },
         "cordova-plugin-datepicker": {
+            "PACKAGE_NAME": "br.com.personalapp"
+        },
+        "cordova-fabric-plugin": {
+            "FABRIC_API_KEY": "d2addebbc0bda6d0b52c6e4cb075cb05ac7cfe08",
+            "FABRIC_API_SECRET": "cacd3b75582f870c46c5133a08ba14e6c12124693cfc0472fc73c9b266df8e1f",
+            "PACKAGE_NAME": "br.com.personalapp"
+        },
+        "com.apptentive.cordova": {
+            "ANDROID_API_KEY": "b7db795570dc7c139da952a380727fca501e57a21107b3e656b7ebe7203c49f4",
             "PACKAGE_NAME": "br.com.personalapp"
         }
     },
@@ -205,6 +248,34 @@
             "clobbers": [
                 "datePicker"
             ]
+        },
+        {
+            "file": "plugins/cordova-fabric-plugin/www/FabricPlugin.js",
+            "id": "cordova-fabric-plugin.FabricPlugin",
+            "clobbers": [
+                "window.fabric.core"
+            ]
+        },
+        {
+            "file": "plugins/cordova-fabric-plugin/www/FabricPlugin.Answers.js",
+            "id": "cordova-fabric-plugin.FabricAnswersPlugin",
+            "clobbers": [
+                "window.fabric.Answers"
+            ]
+        },
+        {
+            "file": "plugins/cordova-fabric-plugin/www/FabricPlugin.Crashlytics.js",
+            "id": "cordova-fabric-plugin.FabricCrashlyticsPlugin",
+            "clobbers": [
+                "window.fabric.Crashlytics"
+            ]
+        },
+        {
+            "file": "plugins/com.apptentive.cordova/www/ApptentiveAndroid.js",
+            "id": "com.apptentive.cordova.Apptentive",
+            "clobbers": [
+                "Apptentive"
+            ]
         }
     ],
     "plugin_metadata": {
@@ -217,6 +288,8 @@
         "ionic-plugin-keyboard": "2.0.1",
         "cordova-plugin-dialogs": "1.2.1",
         "cordova-sqlite-storage": "0.7.14",
-        "cordova-plugin-datepicker": "0.9.3"
+        "cordova-plugin-datepicker": "0.9.3",
+        "cordova-fabric-plugin": "1.0.7",
+        "com.apptentive.cordova": "3.0.0"
     }
 }

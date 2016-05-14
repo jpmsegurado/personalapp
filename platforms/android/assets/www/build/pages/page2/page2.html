@@ -1,8 +1,5 @@
 
 <ion-navbar *navbar class="white-text">
-  <button menuToggle>
-    <ion-icon name="menu"></ion-icon>
-  </button>
   <ion-title>PersonalApp</ion-title>
   <ion-buttons end>
     <button (click)="add()">
@@ -72,7 +69,7 @@
           {{dia.title.substring(0,3)}}
           <div *ngFor="#grupo of grupos">
             <div  *ngFor="#horario of sort(grupo.horarios)">
-              <div class="hora" *ngIf="horario.dia == dia.title">
+              <div class="hora" *ngIf="horario.dia == dia.title" (click)="optionsItem(horario,grupo)">
                 {{horario.hora_inicio}}
                 <br />
                 <span *ngIf="grupo.nome.length == 0">{{grupo.alunos[0].nome}}</span>

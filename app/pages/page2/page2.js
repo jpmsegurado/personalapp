@@ -1,4 +1,4 @@
-import {Page,NavController} from 'ionic-angular';
+import {Page,NavController,Alert} from 'ionic-angular';
 import {AddAulaPage} from "../add-aula/add-aula";
 import {Grupo} from '../../providers/grupo/grupo';
 import {NgZone} from 'angular2/core';
@@ -53,6 +53,34 @@ export class Page2 {
     }
     this.GrupoService = GrupoService;
 
+  }
+
+
+  optionsItem(horario,grupo){
+    let alert = Alert.create({
+    title: 'Atenção',
+    message: 'Deseja excluir essa aula da sua agenda?',
+    buttons: [
+      {
+        text: 'sim',
+        role: 'cancel',
+        handler: () => {
+          let index = grupo.horarios.indexOf(horario);
+          if(index > -1){
+            grupo.horarios.splice(index - 1, 1);
+            this.GrupoService.update(grupo);
+          }
+        }
+      },
+      {
+        text: 'não',
+        handler: () => {
+
+        }
+      }
+    ]
+  });
+  this.nav.present(alert);
   }
 
 

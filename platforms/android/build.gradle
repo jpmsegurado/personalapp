@@ -20,10 +20,12 @@
 // GENERATED FILE! DO NOT EDIT!
 
 apply plugin: 'android'
+apply plugin: 'io.fabric'
 
 buildscript {
     repositories {
         mavenCentral()
+        maven { url 'https://maven.fabric.io/public' }
     }
 
     // Switch the Android Gradle plugin version requirement depending on the
@@ -32,12 +34,14 @@ buildscript {
     // and https://issues.apache.org/jira/browse/CB-8143
     dependencies {
         classpath 'com.android.tools.build:gradle:1.5.0'
+        classpath 'io.fabric.tools:gradle:1.+'
     }
    }
 
 // Allow plugins to declare Maven dependencies via build-extras.gradle.
 repositories {
     mavenCentral()
+    maven { url 'https://maven.fabric.io/public' }
 }
 
 task wrapper(type: Wrapper) {
@@ -86,6 +90,7 @@ ext {
 }
 
 // PLUGIN GRADLE EXTENSIONS START
+apply from: "cordova-fabric-plugin/personalapp-build-extras.gradle"
 // PLUGIN GRADLE EXTENSIONS END
 
 def hasBuildExtras = file('build-extras.gradle').exists()
@@ -242,7 +247,11 @@ dependencies {
     debugCompile project(path: "CordovaLib", configuration: "debug")
     releaseCompile project(path: "CordovaLib", configuration: "release")
     compile "com.facebook.android:facebook-android-sdk:4.+"
+    compile "com.apptentive:apptentive-android:3.0.0"
     // SUB-PROJECT DEPENDENCIES END
+    compile('com.crashlytics.sdk.android:answers:1.3.6@aar') {
+        transitive = true;
+    }
 }
 
 def promptForReleaseKeyPassword() {
@@ -304,3 +313,15 @@ for (def func : cdvPluginPostBuildExtras) {
 if (hasProperty('postBuildExtras')) {
     postBuildExtras()
 }
+// Fabric Cordova Plugin - Start Fabric Build Tools 
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+    }
+    dependencies {
+        classpath 'io.fabric.tools:gradle:1.+'
+    }
+}
+
+apply plugin: 'io.fabric'
+// Fabric Cordova Plugin - End Fabric Build Tools

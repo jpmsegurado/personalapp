@@ -49,7 +49,6 @@ export class Aula {
                     this._results.splice(index, 1); // delete
                   }
                 } else {
-                  change.doc.Date = new Date(change.doc.Date);
                   if (result && result._id === change.id) {
                     this._results[index] = change.doc; // update
                   } else {

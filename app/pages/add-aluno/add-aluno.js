@@ -95,6 +95,7 @@ export class AddAlunoPage {
     grupo.alunos.push(alunoModel);
 
     this.GrupoService.add(grupo).subscribe(() => {
+      window.fabric && window.fabric.Answers.sendCustomEvent("newAluno", alunoModel);
       this.nav.pop();
     });
 
