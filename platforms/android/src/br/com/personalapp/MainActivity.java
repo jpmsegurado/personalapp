@@ -20,8 +20,6 @@
 package br.com.personalapp;
 
 import android.os.Bundle;
-import com.crashlytics.android.answers.Answers;
-import io.fabric.sdk.android.Fabric;
 import org.apache.cordova.*;
 
 public class MainActivity extends CordovaActivity
@@ -30,7 +28,6 @@ public class MainActivity extends CordovaActivity
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        Fabric.with(this, new Answers());
         // Set by <content src="index.html" /> in config.xml
         loadUrl(launchUrl);
     }

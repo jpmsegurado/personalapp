@@ -15,7 +15,6 @@ export class Page2 {
   constructor(nav,GrupoService,zone) {
     this.nav = nav;
     this.zone = zone;
-    this.view = "hoje";
     this.dias_semana = [
       {title: 'Segunda',aulas:{}},
       {title: 'Terça',aulas:{}},
@@ -91,6 +90,8 @@ export class Page2 {
           this.grupos = data;
         });
       });
+
+      this.view = "hoje";
     },50);
   }
 

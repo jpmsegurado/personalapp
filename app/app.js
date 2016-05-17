@@ -1,6 +1,6 @@
 import 'es6-shim';
 import {App, Platform,MenuController,SqlStorage,Storage,LocalStorage} from 'ionic-angular';
-import {StatusBar} from 'ionic-native';
+import {StatusBar,Splashscreen} from 'ionic-native';
 import {TabsPage} from './pages/tabs/tabs';
 import {AddAulaPage} from './pages/add-aula/add-aula';
 import {Facebook} from 'ionic-native';
@@ -22,39 +22,29 @@ export class MyApp {
   }
 
   constructor(platform,menu) {
-    this.rootPage = TabsPage;
     this.menu = menu;
+    this.platform = platform;
+    this.rootPage = TabsPage;
     this.local = new Storage(LocalStorage);
+    // this.local.get('novousuario').then((result) => {
+    //     this.rootPage = result ? TabsPage : IntroPage;
+    //     if(!result){
+    //         this.local.set('novousuario', true);
+    //     }
+    //
+    // });
 
-    this.local.get('novousuario').then((result) => {
-        if(result){
-            this.rootPage = TabsPage;
-        } else {
-            this.local.set('novousuario', true);
-            this.rootPage = IntroPage;
-        }
+    // if(window.cordova){
+    //   let app = {
+    //     initialize: function() {
+    //         document.addEventListener('deviceready', app.onDeviceReady, false);
+    //     }
+    //   };
+    //   app.initialize();
+    // }
+  }
 
-    });
-
-    if(window.cordova){
-      let app = {
-        initialize: function() {
-            document.addEventListener('deviceready', app.onDeviceReady, false);
-        },
-        onDeviceReady: function() {
-            document.addEventListener('resume', app.onResume, false);
-            document.addEventListener('pause', app.onPause, false);
-            Apptentive.deviceReady(app.successLogger, app.errorAlert);
-        },
-        onResume: function() {
-            Apptentive.resume(app.successLogger, app.errorAlert);
-        },
-        onPause: function() {
-            Apptentive.pause(app.successLogger, app.errorAlert);
-        }
-      };
-      app.initialize();
-    }
-
+  ngOnInit(){
+    Splashscreen.hide();
   }
 }

@@ -29,6 +29,13 @@
 
     <div>
 
+      <div class="gray-text" padding-top *ngIf="!grupos || grupos.length == 0">
+        <h4>Nenhuma aula confirmada</h4>
+        <p>
+          Confirme uma aula realizada para depois confirmar o recebimento.
+        </p>
+      </div>
+
       <div *ngFor="#grupo of grupos">
         <div *ngFor="#aula of grupo.aulas">
           <ion-card class="todo-card" *ngIf="matchType(aula)">

@@ -13,11 +13,17 @@
 <ion-content class="page3">
 
   <div padding>
-    <ion-segment dark (change)="onSegmentChanged($event)">
+    <ion-segment dark (change)="onSegmentChanged($event)" >
       <ion-segment-button value="alunos" class="segment-activated">Alunos</ion-segment-button>
       <ion-segment-button value="ex-alunos">Ex-Alunos</ion-segment-button>
     </ion-segment>
 
+    <div class="gray-text" padding-top *ngIf="!grupos || grupos.length == 0">
+      <h4>Nenhum aluno/grupo cadastrado</h4>
+      <p>
+        Clique no botão com o símbolo (+) no canto superior direito para cadastrar
+      </p>
+    </div>
     <div *ngIf="view == 'alunos'">
       <div *ngFor="#grupo of grupos">
         <div *ngFor="#aluno of grupo.alunos">

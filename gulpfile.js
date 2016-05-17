@@ -60,6 +60,7 @@ gulp.task('scripts', function() {
     'node_modules/es6-shim/es6-shim.min.js',
     'node_modules/lodash/lodash.min.js',
     'node_modules/ng2-charts/ng2-charts',
+    'node_modules/vanilla-masker/vmasker.js',
     'node_modules/angular2/bundles/angular2-polyfills.js'
   ]);
 });

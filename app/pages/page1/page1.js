@@ -20,27 +20,48 @@ export class Page1 {
     let date = new Date();
     this.mes = date.getMonth() + 1;
     this.ano = date.getYear() + 1900;
+    this.calculando = true;
+    this.GrupoService.getAll().subscribe((grupos) => {
+      console.log(grupos);
+      this.totalRecebido = 0;
+      this.totalEsperado = 0;
+      if(grupos.length > 0){
+        grupos.forEach((grupo) => {
+          grupo.aulas.forEach((aula) => {
+            if(parseInt(aula.valor)){
+              this.totalRecebido = aula.data_pagamento != null ? this.totalRecebido + parseInt(aula.valor) : this.totalRecebido;
+              this.totalEsperado = aula.realizada == true ? this.totalEsperado + parseInt(aula.valor) : this.totalEsperado;
+            }
+          });
+        });
+      }
+      this.zone.run(() => {
+        this.calculando = false;
+        this.iniciado = true;
+      });
+    });
   }
 
   onPageWillEnter(){
     this.calculando = true;
-    setTimeout(() =>{
-      this.zone.run(() => {
-        this.GrupoService.getAll().subscribe((grupos) => {
-          console.log(grupos);
-          this.totalRecebido = 0;
-          this.totalEsperado = 0;
-          grupos.forEach((grupo) => {
-            grupo.aulas.forEach((aula) => {
-              if(parseInt(aula.valor)){
-                this.totalRecebido = aula.data_pagamento != null ? this.totalRecebido + parseInt(aula.valor) : this.totalRecebido;
-                this.totalEsperado = aula.realizada == true ? this.totalEsperado + parseInt(aula.valor) : this.totalEsperado;
-              }
-            });
+    this.GrupoService.getAll().subscribe((grupos) => {
+      console.log(grupos);
+      this.totalRecebido = 0;
+      this.totalEsperado = 0;
+      if(grupos.length > 0){
+        grupos.forEach((grupo) => {
+          grupo.aulas.forEach((aula) => {
+            if(parseInt(aula.valor)){
+              this.totalRecebido = aula.data_pagamento != null ? this.totalRecebido + parseInt(aula.valor) : this.totalRecebido;
+              this.totalEsperado = aula.realizada == true ? this.totalEsperado + parseInt(aula.valor) : this.totalEsperado;
+            }
           });
-          this.calculando = false;
         });
+      }
+      this.zone.run(() => {
+        this.calculando = false;
+        this.iniciado = true;
       });
-    },50);
+    });
   }
 }

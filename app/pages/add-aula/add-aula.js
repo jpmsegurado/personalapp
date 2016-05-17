@@ -1,19 +1,23 @@
 import {Page, NavController} from 'ionic-angular';
 import {Grupo} from '../../providers/grupo/grupo';
 import {DatePicker} from 'ionic-native';
+import VMasker from '../../../node_modules/vanilla-masker/vmasker';
+import {ElementRef} from 'angular2/core';
+import {NgZone} from 'angular2/core';
 
 @Page({
   templateUrl: 'build/pages/add-aula/add-aula.html'
 })
 export class AddAulaPage {
   static get parameters() {
-    return [[NavController],[Grupo]];
+    return [[NavController],[Grupo],[ElementRef],[NgZone]];
   }
 
-  constructor(nav,GrupoService) {
+  constructor(nav,GrupoService,el,zone) {
     this.nav = nav;
+    this.zone = zone;
     this.GrupoService = GrupoService;
-
+    this.el = el;
     this.GrupoService.getAll().subscribe((data) => {
       // this.grupos = data;
       this.grupos = [];
@@ -51,9 +55,34 @@ export class AddAulaPage {
     this.dia = this.dias_semana[0];
   }
 
+  ngOnInit(){
+    this.initMasks();
+  }
+
+  initMasks(){
+    // this.zone.run(() => {
+    //   setTimeout(() => {
+    //     VMasker(this.el.nativeElement.querySelector('.hora-inicio input')).maskPattern('99:99');
+    //     VMasker(this.el.nativeElement.querySelector('.hora-fim input')).maskPattern('99:99');
+    //     VMasker(this.el.nativeElement.querySelector('.preco-hora input')).maskMoney({
+    //       precision: 2,
+    //       separator: ',',
+    //       delimiter: '.',
+    //       zeroCents: true
+    //     });
+    //     VMasker(this.el.nativeElement.querySelector('.preco-aula input')).maskMoney({
+    //       precision: 2,
+    //       separator: ',',
+    //       delimiter: '.',
+    //       zeroCents: true
+    //     });
+    //   },500);
+    // });
+  }
 
   onSegmentChanged(event){
     this.view = event.value;
+    this.initMasks();
   }
 
   getHour(str){
@@ -63,11 +92,26 @@ export class AddAulaPage {
       androidTheme : 4,
       is24Hour:true
     },(date) => {
-      if(str == 'inicio'){
-        this.aula.hora_inicio = date.getHours()+":"+date.getMinutes();
-      }else{
-        this.aula.hora_fim = date.getHours()+":"+date.getMinutes();
-      }
+      this.zone.run(() => {
+        setTimeout(() => {
+          let hours = date.getHours();
+          let minutes = date.getMinutes();
+          if(hours < 10){
+            hours = "0"+hours;
+          }
+          if(minutes < 10){
+            minutes = "0"+minutes;
+          }
+
+          let time = hours+":"+minutes;
+          if(str == 'inicio'){
+            this.aula.hora_inicio.value = time;
+          }else{
+            this.aula.hora_fim.value = time;
+          }
+          console.log(this.aula);
+        },100);
+      });
     },
     (err) =>{
       console.log(err);

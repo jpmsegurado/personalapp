@@ -1,6 +1,6 @@
 <ion-content class="intro">
-  
-  <ion-slides pager>
+
+  <ion-slides pager *ngIf="show">
 
   	  <ion-slide class="slide1">
 	    <img src="images/slide1.png" class="cover" />
@@ -13,7 +13,7 @@
 	  <ion-slide>
 	    <img src="images/slide3.png" class="slideothers"/>
 	  </ion-slide>
- 
+
 	  <ion-slide>
 	    <ion-row>
 	        <ion-col>
@@ -26,10 +26,7 @@
 	        </ion-col>
 	    </ion-row>
 	  </ion-slide>
-	 
+
 	</ion-slides>
 
 </ion-content>
-
-
-

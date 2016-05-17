@@ -29,21 +29,22 @@
           </ion-option>
         </ion-select>
       </ion-item>
-      <ion-item>
-        <ion-label inset>Hora de Início</ion-label>
-        <ion-input class="text-center" type="text" [(ngModel)]="aula.hora_inicio.value"></ion-input>
+      <ion-item (click)="getHour('inicio')">
+        <span class="hora-label">Hora de início</span>
+        <span class="hora-fim">{{aula.hora_inicio.value}}</span>
       </ion-item>
-      <ion-item>
-        <ion-label inset>Hora de término</ion-label>
-        <ion-input class="text-center" type="text" [(ngModel)]="aula.hora_fim.value"></ion-input>
+      <ion-item (click)="getHour('fim')">
+        <!-- <ion-label inset>Hora de término</ion-label> -->
+        <span class="hora-label">Hora de término</span>
+        <span class="hora-fim">{{aula.hora_fim.value}}</span>
       </ion-item>
       <ion-item >
         <ion-label inset> Preço hora</ion-label>
-        <ion-input type="text" [(ngModel)]="aula.preco_hora.value"></ion-input>
+        <ion-input class="preco-hora" type="number" [(ngModel)]="aula.preco_hora.value"></ion-input>
       </ion-item>
       <ion-item >
         <ion-label inset> Preço aula</ion-label>
-        <ion-input type="text" [(ngModel)]="aula.preco_aula.value"></ion-input>
+        <ion-input class="preco-aula" type="number" [(ngModel)]="aula.preco_aula.value"></ion-input>
       </ion-item>
     </ion-list>
     <ion-row>
@@ -72,21 +73,22 @@
           </ion-option>
         </ion-select>
       </ion-item>
-      <ion-item>
-        <ion-label inset>Hora de Início</ion-label>
-        <ion-input class="text-center" type="text" [(ngModel)]="aula.hora_inicio.value" ></ion-input>
+      <ion-item (click)="getHour('inicio')">
+        <span class="hora-label">Hora de início</span>
+        <span class="hora-fim">{{aula.hora_inicio.value}}</span>
       </ion-item>
-      <ion-item>
-        <ion-label inset>Hora de término</ion-label>
-        <ion-input class="text-center" type="text" [(ngModel)]="aula.hora_fim.value" ></ion-input>
+      <ion-item (click)="getHour('fim')">
+        <!-- <ion-label inset>Hora de término</ion-label> -->
+        <span class="hora-label">Hora de término</span>
+        <span class="hora-fim">{{aula.hora_fim.value}}</span>
       </ion-item>
       <ion-item >
         <ion-label inset> Preço hora</ion-label>
-        <ion-input type="text" [(ngModel)]="aula.preco_hora.value"></ion-input>
+        <ion-input type="number" class="preco-hora" [(ngModel)]="aula.preco_hora.value"></ion-input>
       </ion-item>
       <ion-item >
         <ion-label inset> Preço aula</ion-label>
-        <ion-input type="text" [(ngModel)]="aula.preco_aula.value"></ion-input>
+        <ion-input type="number" class="preco-aula" [(ngModel)]="aula.preco_aula.value"></ion-input>
       </ion-item>
     </ion-list>
     <ion-row>

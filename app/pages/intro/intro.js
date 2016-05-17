@@ -5,7 +5,7 @@ import {TabsPage} from '../tabs/tabs';
     templateUrl: 'build/pages/intro/intro.html'
 })
 export class IntroPage {
-  
+
   static get parameters() {
 
     return [[NavController]];
@@ -15,7 +15,7 @@ export class IntroPage {
     constructor(nav){
         this.nav = nav;
     }
- 
+
     goToHome(){
         this.nav.setRoot(TabsPage);
 

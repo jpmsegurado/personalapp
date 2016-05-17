@@ -10,14 +10,20 @@
 <ion-content class="page2">
 
   <div padding>
-    <ion-segment dark (change)="onSegmentChanged($event)">
+    <ion-segment dark (change)="onSegmentChanged($event)" >
       <ion-segment-button value="hoje" class="segment-activated">Hoje</ion-segment-button>
       <ion-segment-button value="semanal">Semanal</ion-segment-button>
     </ion-segment>
 
     <div *ngIf="view == 'hoje'" padding-top>
 
-      <h2 class="gray-text">Foram Realizadas hoje?</h2>
+      <h2 class="gray-text" *ngIf="grupos.length > 0">Foram Realizadas hoje?</h2>
+      <div class="gray-text" *ngIf="grupos.length == 0">
+        <h4>Nenhuma aula cadastrada</h4>
+        <p>
+          Clique no botão com o símbolo (+) no canto superior direito para cadastrar
+        </p>
+      </div>
       <div *ngFor="#grupo of grupos ">
         <div *ngIf="grupo.nome.length == 0">
           <div *ngFor="#aula of grupo.horarios" >

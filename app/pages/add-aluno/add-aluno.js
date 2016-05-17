@@ -1,5 +1,7 @@
 import {Page, NavController,SqlStorage,Storage,Alert} from 'ionic-angular';
-import PouchDB from '../../../node_modules/pouchdb/dist/pouchdb';
+import {ElementRef} from 'angular2/core';
+import PouchDB from 'pouchdb/dist/pouchdb';
+import VMasker from '../../../node_modules/vanilla-masker/vmasker';
 import {Grupo} from '../../providers/grupo/grupo';
 import {GrupoModel} from '../../models/grupo-model';
 
@@ -8,11 +10,13 @@ import {GrupoModel} from '../../models/grupo-model';
 })
 export class AddAlunoPage {
   static get parameters() {
-    return [[NavController],[Grupo]];
+    return [[NavController], [ElementRef], [Grupo]];
   }
 
-  constructor(nav,GrupoService) {
+  constructor(nav, el, GrupoService) {
     this.nav = nav;
+    this.el = el;
+
     this.aluno = {
       nome:"",
       telefone:"",
@@ -33,6 +37,26 @@ export class AddAlunoPage {
       });
     });
 
+  }
+
+  ngOnInit(){
+    function inputHandler(masks, max, event) {
+      var c = event.target;
+      var v = c.value.replace(/\D/g, '');
+      var m = c.value.length > max ? 1 : 0;
+      VMasker(c).unMask();
+      VMasker(c).maskPattern(masks[m]);
+      c.value = VMasker.toPattern(v, masks[m]);
+    }
+
+    VMasker(this.el.nativeElement.querySelector('.birthday input')).maskPattern('99/99/9999');
+    VMasker(this.el.nativeElement.querySelector('.phone input')).maskPattern('(99) 9999-99999');
+    VMasker(this.el.nativeElement.querySelector('.height input')).maskPattern('9,99');
+
+    let docMask = ['99,99', '999,99'];
+    let doc = this.el.nativeElement.querySelector('.weight input');
+    VMasker(doc).maskPattern(docMask[0]);
+    doc.addEventListener('input', inputHandler.bind(undefined, docMask, 5), false);
   }
 
   onGrupoChange(aluno){
