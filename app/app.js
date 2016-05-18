@@ -26,13 +26,13 @@ export class MyApp {
     this.platform = platform;
     this.rootPage = TabsPage;
     this.local = new Storage(LocalStorage);
-    // this.local.get('novousuario').then((result) => {
-    //     this.rootPage = result ? TabsPage : IntroPage;
-    //     if(!result){
-    //         this.local.set('novousuario', true);
-    //     }
-    //
-    // });
+    this.local.get('novousuario').then((result) => {
+        this.rootPage = result ? TabsPage : IntroPage;
+        if(!result){
+            this.local.set('novousuario', true);
+        }
+
+    });
 
     // if(window.cordova){
     //   let app = {

@@ -1,8 +1,6 @@
-
-
 <ion-content padding class="page1">
 
-  <div *ngIf="iniciado">
+  <div *ngIf="!carregando">
     <ion-card *ngIf="!(totalEsperado == 0 && totalRecebido == 0)">
       <ion-card-content>
         <h2>Faturamento</h2>
@@ -11,20 +9,22 @@
     </ion-card>
 
     <div class="gray-text" *ngIf="(totalEsperado == 0 && totalRecebido == 0)">
-      <h5>Não há nenhuma aula cadastrada.</h5>
-      <p>Cadastre para ter análises sobre seu faturamento.</p>
-      <p>
-        Siga os passos:<br /><br />
-        1 - Vá em alunos e cadastre um aluno ou grupo de alunos.<br /><br />
-        2 - Vá em agenda e cadastre uma aula.<br /><br />
-        3 - Confirme a aula no dia em que for realizada.<br /><br />
-        4 - Vá em finanças e sempre que receber um pagamento, confirme.<br /><br />
-        5 - Veja os gráficos na tela inicial.
-      </p>
+      <div *ngIf="showMsg">
+        <h5>Não há nenhuma aula cadastrada.</h5>
+        <p>Cadastre para ter análises sobre seu faturamento.</p>
+        <p>
+          Siga os passos:<br /><br />
+          1 - Vá em alunos e cadastre um aluno ou grupo de alunos.<br /><br />
+          2 - Vá em agenda e cadastre uma aula.<br /><br />
+          3 - Confirme a aula no dia em que for realizada.<br /><br />
+          4 - Vá em finanças e sempre que receber um pagamento, confirme.<br /><br />
+          5 - Veja os gráficos na tela inicial.
+        </p>
+      </div>
     </div>
   </div>
 
-  <div *ngIf="!iniciado" class="spinner-wrapper">
+  <div *ngIf="carregando" class="spinner-wrapper">
     <ion-spinner></ion-spinner>
   </div>
 

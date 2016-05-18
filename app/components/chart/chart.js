@@ -34,6 +34,6 @@ export class ChartComponent {
             }]
     };
 
-    this.chart = ctx != undefined && this.chart == null ? new Chart(ctx, {type: 'doughnut',data: data}) : null;
+    this.chart = ctx != undefined && this.chart == null ? new Chart(ctx, {type: 'doughnut',data: data,animation:this.animate}) : null;
   }
 }

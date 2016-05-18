@@ -86,6 +86,14 @@ export class AddAulaPage {
   }
 
   getHour(str){
+    if(!window.cordova){
+      if(str == 'inicio'){
+        this.aula.hora_inicio.value = "15:00";
+      }else{
+        this.aula.hora_fim.value = "16:00";
+      }
+      return;
+    }
     DatePicker.show({
       date: new Date(),
       mode: 'time',
@@ -174,6 +182,7 @@ export class AddAulaPage {
       this.grupo = null;
       this.change(aula);
       this.aluno.horarios.push(newAula);
+      this.aluno.isNew = false;
       this.GrupoService.update(this.aluno).subscribe((data) => {
         window.fabric && window.fabric.Answers.sendCustomEvent("newAula", newAula);
         this.nav.pop();

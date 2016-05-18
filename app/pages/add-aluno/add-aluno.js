@@ -52,11 +52,6 @@ export class AddAlunoPage {
     VMasker(this.el.nativeElement.querySelector('.birthday input')).maskPattern('99/99/9999');
     VMasker(this.el.nativeElement.querySelector('.phone input')).maskPattern('(99) 9999-99999');
     VMasker(this.el.nativeElement.querySelector('.height input')).maskPattern('9,99');
-
-    let docMask = ['99,99', '999,99'];
-    let doc = this.el.nativeElement.querySelector('.weight input');
-    VMasker(doc).maskPattern(docMask[0]);
-    doc.addEventListener('input', inputHandler.bind(undefined, docMask, 5), false);
   }
 
   onGrupoChange(aluno){
@@ -112,6 +107,7 @@ export class AddAlunoPage {
       nascimento:aluno.nascimento,
       peso:aluno.peso,
       altura:aluno.altura,
+      isNew:true,
       objetivo:aluno.objetivo
     };
 

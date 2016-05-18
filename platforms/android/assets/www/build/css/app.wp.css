@@ -10406,7 +10406,8 @@ body {
   width: 14.285%;
   font-size: 14px;
   background: #fff;
-  min-height: 132px; }
+  min-height: 132px;
+  padding: 0 2px; }
 
 .page2 .dia span {
   font-size: 12px; }
