@@ -21,3 +21,53 @@
 @import "../pages/add-group/add-group";
 @import "../components/chart/chart";
 @import "../pages/intro/intro";
+@import "../pages/aluno-info/aluno-info";
+
+
+.page1,.page2,.page3,.page-4,.add-aluno-page,.add-aula,.add-group,.aluno-info, .avaliacoes{
+  background-color: #e6e6e6;
+}
+
+ion-card{
+  margin: 10px 0 !important;
+  width: 100% !important;
+}
+
+.black-text{
+  color: #151515;
+}
+
+.gray-text{
+  color: #777 !important;
+}
+
+.bold{
+  font-weight: bold;
+}
+
+.text-left{
+  text-align: left;
+}
+
+.text-center{
+  text-align: center !important;
+}
+.text-right{
+  text-align: right;
+}
+
+.white-text{
+  color: #fff !important;
+}
+
+.white-text * {
+  color: #fff !important;
+}
+
+.green-text{
+  color: #57b568 !important;
+}
+
+.red-text{
+  color: #a00e1c !important;
+}

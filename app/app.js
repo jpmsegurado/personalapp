@@ -1,6 +1,6 @@
 import 'es6-shim';
 import {App, Platform,MenuController,SqlStorage,Storage,LocalStorage} from 'ionic-angular';
-import {StatusBar,Splashscreen} from 'ionic-native';
+import {StatusBar,Splashscreen,Keyboard} from 'ionic-native';
 import {TabsPage} from './pages/tabs/tabs';
 import {AddAulaPage} from './pages/add-aula/add-aula';
 import {Facebook} from 'ionic-native';
@@ -22,6 +22,7 @@ export class MyApp {
   }
 
   constructor(platform,menu) {
+    Keyboard.hideKeyboardAccessoryBar(false);
     this.menu = menu;
     this.platform = platform;
     this.rootPage = TabsPage;
@@ -45,6 +46,6 @@ export class MyApp {
   }
 
   ngOnInit(){
-    Splashscreen.hide();
+    window.cordova && Splashscreen.hide();
   }
 }

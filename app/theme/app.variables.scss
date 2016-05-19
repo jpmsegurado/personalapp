@@ -27,66 +27,18 @@ $colors: (
   light:      #f4f4f4,
   dark:       #222,
   vermelho:   #f42b3e,
-  verdebtn:   #38af63,
-  cinzabar:   #474f52,
+  verdebtn:   #00B19A,
+  cinzabar:   #FE611D,
   cinzabg:    #e6e6e6,
   favorite:   #69BB7B
 );
 
-$toolbar-background:#474f52;
+$toolbar-background:#FE611D;
 $toolbar-md-text-color:#fff;
 $toolbar-ios-text-color:#fff;
-$tabbar-md-background:#474f52;
-$tab-button-md-inactive-color:#aaa;
-$tab-button-ios-inactive-color:#aaa;
+$tabbar-md-background:#FE611D;
+$tab-button-md-inactive-color:#eee;
+$tab-button-ios-inactive-color:#eee;
 $tab-button-md-active-color:#fff;
 $tab-button-ios-active-color:#fff;
 $item-md-note-color:#000;
-
-.page1,.page2,.page3,.page-4,.add-aluno-page,.add-aula,.add-group{
-  background-color: #e6e6e6;
-}
-
-ion-card{
-  margin: 10px 0 !important;
-  width: 100% !important;
-}
-
-.black-text{
-  color: #151515;
-}
-
-.gray-text{
-  color: #777 !important;
-}
-
-.bold{
-  font-weight: bold;
-}
-
-.text-left{
-  text-align: left;
-}
-
-.text-center{
-  text-align: center !important;
-}
-.text-right{
-  text-align: right;
-}
-
-.white-text{
-  color: #fff !important;
-}
-
-.white-text * {
-  color: #fff !important;
-}
-
-.green-text{
-  color: #57b568 !important;
-}
-
-.red-text{
-  color: #a00e1c !important;
-}

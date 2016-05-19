@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="br.com.personalapp" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>PersonalApp</name>
+<widget id="br.com.powerup" version="0.0.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+  <name>PowerUP</name>
   <description>Aplicativos para personal trainers.</description>
   <author email="hi@ionicframework" href="http://ionicframework.com/">Douglas Evaristo e João Pedro Segurado</author>
   <content src="index.html"/>

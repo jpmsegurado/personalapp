@@ -40,8 +40,7 @@ export class AddAulaPage {
       dia:{value:"Segunda",required:true},
       hora_inicio:{value:"",required:true},
       hora_fim:{value:"",required:true},
-      preco_aula:{value:"",required:true},
-      preco_hora:{value:"",required:true}
+      preco_aula:{value:"",required:true}
     };
     this.dias_semana = [
       'Segunda',
@@ -173,8 +172,7 @@ export class AddAulaPage {
       hora_inicio:aula.hora_inicio.value,
       hora_fim:aula.hora_fim.value,
       dia:aula.dia.value,
-      preco_aula:aula.preco_aula.value,
-      preco_hora:aula.preco_hora.value
+      preco_aula:aula.preco_aula.value
     };
 
 

@@ -1,0 +1,25 @@
+<ion-navbar *navbar class="white-text">
+  <ion-title>Informações</ion-title>
+</ion-navbar>
+
+<ion-content padding-top class="aluno-info">
+  <ion-list>
+    <ion-item>
+      <ion-icon name="contact" item-left></ion-icon>
+      {{aluno.nome}}
+    </ion-item>
+    <ion-item>
+      <ion-icon name="call" item-left></ion-icon>
+      {{aluno.telefone}}
+    </ion-item>
+    <ion-item>
+      <ion-icon name="information-circle" item-left></ion-icon>
+      {{aluno.peso}}kg   {{aluno.altura}}m    {{aluno.nascimento}}
+    </ion-item>
+  </ion-list>
+  <!-- <ion-row>
+    <ion-col width-80 offset-10>
+      <button verdebtn full (click)="avaliacoes(grupo,aluno)">ver avaliações físicas</button>
+    </ion-col>
+  </ion-row> -->
+</ion-content>

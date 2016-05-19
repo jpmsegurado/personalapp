@@ -1,5 +1,5 @@
 import {Page, NavController,SqlStorage,Storage,Alert} from 'ionic-angular';
-import {ElementRef} from 'angular2/core';
+import {ElementRef,NgZone} from 'angular2/core';
 import PouchDB from 'pouchdb/dist/pouchdb';
 import VMasker from '../../../node_modules/vanilla-masker/vmasker';
 import {Grupo} from '../../providers/grupo/grupo';
@@ -10,13 +10,13 @@ import {GrupoModel} from '../../models/grupo-model';
 })
 export class AddAlunoPage {
   static get parameters() {
-    return [[NavController], [ElementRef], [Grupo]];
+    return [[NavController], [ElementRef], [Grupo],[NgZone]];
   }
 
-  constructor(nav, el, GrupoService) {
+  constructor(nav, el, GrupoService,zone) {
     this.nav = nav;
     this.el = el;
-
+    this.zone = zone;
     this.aluno = {
       nome:"",
       telefone:"",
@@ -119,6 +119,48 @@ export class AddAlunoPage {
       this.nav.pop();
     });
 
+  }
+
+  addGrupo() {
+    let alert = Alert.create({
+      title: 'Novo Grupo',
+      inputs: [
+        {
+          name: 'nomeGrupo',
+          placeholder: 'Nome do grupo',
+          type: 'text'
+        }
+      ],
+      buttons: [
+        {
+          text: 'cancelar',
+          role: 'cancel',
+          handler: data => {
+
+          }
+        },
+        {
+          text: 'adicionar',
+          handler: data => {
+            let novoGrupo = new GrupoModel();
+            novoGrupo.nome = data.nomeGrupo;
+            this.GrupoService.add(novoGrupo).subscribe((data) =>{
+              this.zone.run(() => {
+                this.GrupoService.getAll().subscribe((data) => {
+                  this.grupos = [];
+                  data.forEach((item) =>{
+                    if(item.nome.length > 0){
+                      this.grupos.push(item);
+                    }
+                  });
+                });
+              });
+            });
+          }
+        }
+      ]
+    });
+    this.nav.present(alert);
   }
 
 }

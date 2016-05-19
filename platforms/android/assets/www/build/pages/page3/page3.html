@@ -1,9 +1,6 @@
 <ion-navbar *navbar class="white-text">
-  <ion-title>PersonalApp</ion-title>
+  <ion-title>PowerUP</ion-title>
   <ion-buttons end>
-    <button (click)="groups()">
-      <ion-icon name="contacts"></ion-icon>
-    </button>
     <button (click)="add()">
       <ion-icon name="add"></ion-icon>
     </button>
@@ -27,13 +24,16 @@
     <div *ngIf="view == 'alunos'">
       <div *ngFor="#grupo of grupos">
         <div *ngFor="#aluno of grupo.alunos">
-          <ion-card *ngIf="grupo.horarios.length > 0 || aluno.isNew">
+          <ion-card *ngIf="grupo.horarios.length > 0 || aluno.isNew" (click)="alunoInfo(grupo,aluno)">
             <ion-card-content>
               <div class="card-wrapper">
                 <h2 class="bold">{{aluno.nome}} - {{aluno.objetivo}}</h2>
                 <p>
                   {{aluno.peso}}kg - {{aluno.altura}}m
                 </p>
+                <button verdebtn clear class="info">
+                  <ion-icon name="information-circle"></ion-icon>
+                </button>
               </div>
             </ion-card-content>
           </ion-card>
@@ -45,7 +45,7 @@
     <div *ngIf="view == 'ex-alunos'">
       <div *ngFor="#grupo of grupos">
         <div *ngFor="#aluno of grupo.alunos">
-          <ion-card *ngIf="grupo.horarios.length == 0 && !aluno.isNew">
+          <ion-card *ngIf="grupo.horarios.length == 0 && !aluno.isNew" (click)="alunoInfo(grupo,aluno)">
             <ion-card-content>
               <div class="card-wrapper">
                 <h2 class="bold">{{aluno.nome}} - {{aluno.objetivo}}</h2>

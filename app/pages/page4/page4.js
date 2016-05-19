@@ -16,6 +16,7 @@ export class Page4 {
     this.GrupoService = GrupoService;
     this.GrupoService.getAll().subscribe((data) => {
       this.grupos = data;
+      console.log(data);
     });
 
     let date = new Date();
@@ -24,6 +25,16 @@ export class Page4 {
 
     this.arrMeses = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
 
+  }
+
+  sum(grupo,aluno){
+    let total = 0;
+    if(grupo.aulas.length > 0){
+      grupo.aulas.forEach((aula)=>{
+        total = aula.aluno.id == aluno.id  && this.matchType(aula )? total+parseInt(aula.valor) : total;
+      });
+    }
+    return total;
   }
 
   nextMonth(){
@@ -44,7 +55,7 @@ export class Page4 {
     }
   }
 
-  confirmar(aula,grupo){
+  confirmar(grupo,aula){
     let date = new Date();
     let dia = date.getDate();
     let mes = date.getMonth() + 1;
@@ -58,9 +69,16 @@ export class Page4 {
     }
 
     let today = dia+"/"+mes+"/"+ano;
-    aula.data_pagamento = today;
-
+    grupo.aulas.forEach((aula)=>{
+      if(this.matchDataRealizada(aula) && aula.data_pagamento == null){
+        aula.data_pagamento = today;
+      }
+    });
     this.GrupoService.update(grupo);
+  }
+
+  matchDataRealizada(aula){
+    return this.mes == parseInt(aula.data_realizada.substring(3,5)) && this.ano == aula.data_realizada.substring(6);
   }
 
 

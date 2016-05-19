@@ -3,6 +3,7 @@ import {AddAlunoPage} from "../add-aluno/add-aluno";
 import {Grupo} from '../../providers/grupo/grupo';
 import {AddGroupPage} from '../add-group/add-group';
 import {NgZone} from 'angular2/core';
+import {AlunoInfoPage} from '../aluno-info/aluno-info';
 
 
 @Page({
@@ -34,8 +35,14 @@ export class Page3 {
     this.nav.push(AddGroupPage);
   }
 
+  
+
   onSegmentChanged(event){
     this.view = event.value;
+  }
+
+  alunoInfo(grupo,aluno){
+    this.nav.push(AlunoInfoPage,{grupo:grupo,aluno:aluno});
   }
 
   add(){

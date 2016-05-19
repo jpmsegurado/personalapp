@@ -19,7 +19,7 @@ export class ChartComponent {
   }
 
   ngOnInit(){
-    let ctx = this.element.nativeElement.querySelector("#chart").getContext('2d');;
+    let ctx = this.element.nativeElement.querySelector("#chart").getContext('2d');
     var data = {
         labels: [
             "Recebidos: R$"+(this.recebido),
@@ -29,7 +29,7 @@ export class ChartComponent {
             {
                 data: [this.recebido, (this.esperado - this.recebido)],
                 backgroundColor: [
-                    "#38af63"
+                    "#00B19A"
                 ]
             }]
     };

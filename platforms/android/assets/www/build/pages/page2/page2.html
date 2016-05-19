@@ -1,6 +1,6 @@
 
 <ion-navbar *navbar class="white-text">
-  <ion-title>PersonalApp</ion-title>
+  <ion-title>PowerUP</ion-title>
   <ion-buttons end>
     <button (click)="add()">
       <ion-icon name="add"></ion-icon>
@@ -17,7 +17,6 @@
 
     <div *ngIf="view == 'hoje'" padding-top>
 
-      <h2 class="gray-text" *ngIf="grupos.length > 0">Foram Realizadas hoje?</h2>
       <div class="gray-text" *ngIf="grupos.length == 0">
         <h4>Nenhuma aula cadastrada</h4>
         <p>
@@ -27,7 +26,7 @@
       <div *ngFor="#grupo of grupos ">
         <div *ngIf="grupo.nome.length == 0">
           <div *ngFor="#aula of grupo.horarios" >
-            <ion-card *ngIf="aula.dia == hoje && !foiRealizada(grupo,aula)" class="todo-card">
+            <ion-card *ngIf="aula.dia == hoje" class="todo-card">
               <div class="card-wrapper">
                 <ion-card-content>
                   <h2 class="bold no-text-overlow">{{grupo.alunos[0].nome}} - {{grupo.alunos[0].objetivo}}</h2>
@@ -35,9 +34,8 @@
                     {{aula.hora_inicio}} - {{aula.hora_fim}}
                   </p>
                   <div class="button-actions">
-                    <button clear primary>Remarcar</button>
-                    <button clear danger>Não</button>
-                    <button clear verdebtn (click)="confirmarAula(grupo,aula)">Sim</button>
+                    <button clear verdebtn *ngIf="!foiRealizada(grupo,aula)" (click)="confirmarAula(grupo,aula)">Confirmar</button>
+                    <button clear verdebtn *ngIf="foiRealizada(grupo,aula)" >Realizada</button>
                   </div>
                 </ion-card-content>
               </div>

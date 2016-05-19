@@ -1,6 +1,10 @@
 .page1 {
-  ion-card{
-    height: 200px;
+  ion-card, ion-card-content{
+    float: left !important;
+  }
+
+  ion-card-content{
+    width: 100%;
   }
 
   .spinner-wrapper{
