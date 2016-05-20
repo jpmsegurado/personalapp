@@ -51,7 +51,12 @@ export class Page2 {
         break;
     }
     this.GrupoService = GrupoService;
-
+    this.zone.run(() => {
+      this.GrupoService.getAll().subscribe((data) => {
+        this.grupos = data;
+      });
+      this.view = "hoje";
+    });
   }
 
 
@@ -84,15 +89,11 @@ export class Page2 {
 
 
   onPageWillEnter(){
-    setTimeout(() =>{
-      this.zone.run(() => {
-        this.GrupoService.getAll().subscribe((data) => {
-          this.grupos = data;
-        });
+    this.zone.run(() => {
+      this.GrupoService.getAll().subscribe((data) => {
+        this.grupos = data;
       });
-
-      this.view = "hoje";
-    },50);
+    });
   }
 
   getAulas(obj){

@@ -22,20 +22,18 @@ export class Page3 {
   }
 
   onPageWillEnter(){
-    setTimeout(() =>{
-      this.zone.run(() => {
-        this.GrupoService.getAll().subscribe((data) => {
-          this.grupos = data;
-        });
+    this.zone.run(() => {
+      this.GrupoService.getAll().subscribe((data) => {
+        this.grupos = data;
       });
-    },50);
+    });
   }
 
   groups(){
     this.nav.push(AddGroupPage);
   }
 
-  
+
 
   onSegmentChanged(event){
     this.view = event.value;

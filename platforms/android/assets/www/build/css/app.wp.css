@@ -10621,7 +10621,10 @@ ion-slides {
 .aluno-info ion-item ion-icon {
   color: #777; }
 
-.page1, .page2, .page3, .page-4, .add-aluno-page, .add-aula, .add-group, .aluno-info, .avaliacoes {
+.aulas-pagamento h2 {
+  color: #999; }
+
+.page1, .page2, .page3, .page-4, .add-aluno-page, .add-aula, .add-group, .aluno-info, .avaliacoes, .aulas-pagamento {
   background-color: #e6e6e6; }
 
 ion-card {

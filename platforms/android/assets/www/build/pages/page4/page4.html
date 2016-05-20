@@ -53,7 +53,7 @@
                 </p> -->
                 <div class="button-actions">
                   <button clear verdebtn *ngIf="view == 'nao-recebidos'" (click)="confirmar(grupo,aluno)">confirmar</button>
-                  <button clear verdebtn *ngIf="view == 'recebidos'">ver aulas</button>
+                  <button clear verdebtn *ngIf="view == 'recebidos'" (click)="verAulas(grupo,aluno)">ver aulas</button>
                 </div>
               </ion-card-content>
             </div>

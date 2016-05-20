@@ -1,5 +1,6 @@
 import {Page,NavController} from 'ionic-angular';
 import {Grupo} from '../../providers/grupo/grupo';
+import {AulasPagamentoPage} from '../aulas-pagamento/aulas-pagamento';
 
 
 @Page({
@@ -75,6 +76,31 @@ export class Page4 {
       }
     });
     this.GrupoService.update(grupo);
+  }
+
+  verAulas(grupo,aluno){
+    let date = new Date();
+    let dia = date.getDate();
+    let mes = date.getMonth() + 1;
+    let ano = date.getYear() + 1900;
+    if(dia < 10){
+      dia = "0"+dia;
+    }
+
+    if(mes < 10){
+      mes = "0"+mes;
+    }
+
+    let today = dia+"/"+mes+"/"+ano;
+    let array = [];
+    grupo.aulas.forEach((aula)=>{
+      if(this.matchDataRealizada(aula) && aula.data_pagamento != null){
+        array.push(aula);
+      }
+    });
+    console.log(this.arrMeses[this.mes - 1]);
+    console.log(this.ano);
+    this.nav.push(AulasPagamentoPage,{aulas:array,mes:this.arrMeses[this.mes - 1],ano:this.ano});
   }
 
   matchDataRealizada(aula){

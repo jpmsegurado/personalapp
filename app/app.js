@@ -8,6 +8,9 @@ import {Grupo} from './providers/grupo/grupo';
 import {Mask} from './components/mask/mask';
 import {IntroPage} from './pages/intro/intro';
 import PouchDB from '../node_modules/pouchdb/dist/pouchdb';
+import {enableProdMode} from 'angular2/core';
+
+enableProdMode();
 
 
 @App({
