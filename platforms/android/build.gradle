@@ -86,7 +86,7 @@ ext {
 }
 
 // PLUGIN GRADLE EXTENSIONS START
-apply from: "cordova-fabric-plugin/personalapp-build-extras.gradle"
+apply from: "cordova-fabric-plugin/powerup-build-extras.gradle"
 // PLUGIN GRADLE EXTENSIONS END
 
 def hasBuildExtras = file('build-extras.gradle').exists()

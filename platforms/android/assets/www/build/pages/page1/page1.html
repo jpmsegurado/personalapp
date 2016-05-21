@@ -1,12 +1,28 @@
 <ion-content padding class="page1">
 
   <div *ngIf="!carregando">
-    <ion-card *ngIf="!(totalEsperado == 0 && totalRecebido == 0)">
+    <!-- <ion-card *ngIf="!(totalEsperado == 0 && totalRecebido == 0)">
       <ion-card-content>
         <h2>Faturamento</h2>
         <chart esperado="{{totalEsperado}}" recebido="{{totalRecebido}}" animate={{animate}}></chart>
       </ion-card-content>
+    </ion-card> -->
+
+
+    <ion-card *ngIf="!(totalEsperado == 0 && totalRecebido == 0)">
+      <ion-card-content>
+        <h2>Faturamento</h2>
+        <img src="images/indice.jpg" />
+      </ion-card-content>
     </ion-card>
+    <p class="text-center">
+      Não há dados para análise. Cadastre uma aula.
+    </p>
+    <ion-row>
+      <ion-col width-80 offset-10>
+        <button full verdebtn>Cadastre sua primeira aula</button>
+      </ion-col>
+    </ion-row>
 
     <div class="gray-text" *ngIf="(totalEsperado == 0 && totalRecebido == 0)">
       <div *ngIf="showMsg">
