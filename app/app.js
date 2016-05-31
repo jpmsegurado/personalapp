@@ -1,4 +1,3 @@
-import 'es6-shim';
 import {App, Platform,MenuController,SqlStorage,Storage,LocalStorage} from 'ionic-angular';
 import {StatusBar,Splashscreen,Keyboard} from 'ionic-native';
 import {TabsPage} from './pages/tabs/tabs';
@@ -8,15 +7,16 @@ import {Grupo} from './providers/grupo/grupo';
 import {Mask} from './components/mask/mask';
 import {IntroPage} from './pages/intro/intro';
 import PouchDB from '../node_modules/pouchdb/dist/pouchdb';
-// import {enableProdMode} from 'angular2/core';
-
+import {ViewChild} from '@angular/core';
 // enableProdMode();
 
 
 @App({
   templateUrl: 'build/pages/app.html',
   config: {tabbarPlacement: 'bottom'},
-  diretives:[Mask],
+  queries: {
+    nav: new ViewChild('content')
+  },
   providers : [Grupo]
 })
 export class MyApp {
@@ -25,7 +25,7 @@ export class MyApp {
   }
 
   constructor(platform,menu) {
-    Keyboard.hideKeyboardAccessoryBar(false);
+    // Keyboard.hideKeyboardAccessoryBar(false);
     this.menu = menu;
     this.platform = platform;
     this.rootPage = TabsPage;
@@ -37,6 +37,7 @@ export class MyApp {
         }
 
     });
+
 
     // if(window.cordova){
     //   let app = {

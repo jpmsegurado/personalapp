@@ -1,9 +1,9 @@
 import {Page, NavController} from 'ionic-angular';
 import {Grupo} from '../../providers/grupo/grupo';
 import {DatePicker} from 'ionic-native';
-import VMasker from '../../../node_modules/vanilla-masker/vmasker';
-import {ElementRef} from 'angular2/core';
-import {NgZone} from 'angular2/core';
+import VMasker from 'vanilla-masker/lib/vanilla-masker';
+import {ElementRef} from '@angular/core';
+import {NgZone} from '@angular/core';
 
 @Page({
   templateUrl: 'build/pages/add-aula/add-aula.html'

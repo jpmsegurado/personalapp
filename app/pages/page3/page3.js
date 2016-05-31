@@ -2,7 +2,7 @@ import {Page,NavController} from 'ionic-angular';
 import {AddAlunoPage} from "../add-aluno/add-aluno";
 import {Grupo} from '../../providers/grupo/grupo';
 import {AddGroupPage} from '../add-group/add-group';
-import {NgZone} from 'angular2/core';
+import {NgZone} from '@angular/core';
 import {AlunoInfoPage} from '../aluno-info/aluno-info';
 
 

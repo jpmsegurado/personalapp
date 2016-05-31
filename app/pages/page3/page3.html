@@ -22,8 +22,8 @@
       </p>
     </div>
     <div *ngIf="view == 'alunos'">
-      <div *ngFor="#grupo of grupos">
-        <div *ngFor="#aluno of grupo.alunos">
+      <div *ngFor="let grupo of grupos">
+        <div *ngFor="let aluno of grupo.alunos">
           <ion-card *ngIf="grupo.horarios.length > 0 || aluno.isNew" (click)="alunoInfo(grupo,aluno)">
             <ion-card-content>
               <div class="card-wrapper">
@@ -43,8 +43,8 @@
 
 
     <div *ngIf="view == 'ex-alunos'">
-      <div *ngFor="#grupo of grupos">
-        <div *ngFor="#aluno of grupo.alunos">
+      <div *ngFor="let grupo of grupos">
+        <div *ngFor="let aluno of grupo.alunos">
           <ion-card *ngIf="grupo.horarios.length == 0 && !aluno.isNew" (click)="alunoInfo(grupo,aluno)">
             <ion-card-content>
               <div class="card-wrapper">

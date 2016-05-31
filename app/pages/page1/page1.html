@@ -1,4 +1,4 @@
-<ion-content padding class="page1">
+<ion-content padding class="page1 outer-content">
 
   <div *ngIf="!carregando">
     <!-- <ion-card *ngIf="!(totalEsperado == 0 && totalRecebido == 0)">
@@ -13,11 +13,11 @@
       <ion-card-content>
         <h2>Faturamento</h2>
         <img src="images/indice.jpg" />
+        <p class="text-center">
+          Não há dados para análise. Cadastre uma aula.
+        </p>
       </ion-card-content>
     </ion-card>
-    <p class="text-center">
-      Não há dados para análise. Cadastre uma aula.
-    </p>
     <ion-row>
       <ion-col width-80 offset-10>
         <button full verdebtn>Cadastre sua primeira aula</button>

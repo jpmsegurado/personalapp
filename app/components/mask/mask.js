@@ -1,5 +1,5 @@
-import {Directive,Input} from 'angular2/core';
-import {NgModel} from 'angular2/common';
+import {Directive,Input} from '@angular/core';
+import {NgModel} from '@angular/common';
 
 @Directive({
     selector: '[ngModel][mask]',

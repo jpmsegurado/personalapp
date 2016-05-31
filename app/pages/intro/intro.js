@@ -18,6 +18,5 @@ export class IntroPage {
 
     goToHome(){
         this.nav.setRoot(TabsPage);
-
     }
 }

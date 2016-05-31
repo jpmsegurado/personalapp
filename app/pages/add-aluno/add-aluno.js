@@ -1,7 +1,7 @@
 import {Page, NavController,SqlStorage,Storage,Alert} from 'ionic-angular';
-import {ElementRef,NgZone} from 'angular2/core';
+import {ElementRef,NgZone} from '@angular/core';
 import PouchDB from 'pouchdb/dist/pouchdb';
-import VMasker from '../../../node_modules/vanilla-masker/vmasker';
+import VMasker from 'vanilla-masker/lib/vanilla-masker';
 import {Grupo} from '../../providers/grupo/grupo';
 import {GrupoModel} from '../../models/grupo-model';
 

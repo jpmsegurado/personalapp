@@ -36,8 +36,8 @@
         </p>
       </div>
 
-      <div *ngFor="#grupo of grupos">
-        <div *ngFor="#aluno of grupo.alunos">
+      <div *ngFor="let grupo of grupos">
+        <div *ngFor="let aluno of grupo.alunos">
           <ion-card class="todo-card" *ngIf="sum(grupo,aluno) > 0">
             <div class="card-wrapper">
               <ion-card-content>

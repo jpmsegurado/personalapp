@@ -1,7 +1,7 @@
 import {Page,NavController,Alert} from 'ionic-angular';
 import {AddAulaPage} from "../add-aula/add-aula";
 import {Grupo} from '../../providers/grupo/grupo';
-import {NgZone} from 'angular2/core';
+import {NgZone} from '@angular/core';
 
 
 @Page({

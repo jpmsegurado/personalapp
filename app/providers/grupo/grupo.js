@@ -1,9 +1,7 @@
-import {Injectable} from 'angular2/core';
-import 'rxjs/add/operator/map';
+import {Injectable} from '@angular/core';
+import 'rxjs/add/observable/fromPromise';
 import {Observable} from 'rxjs/Observable';
-import '../../../node_modules/rxjs/add/observable/fromArray';
-import '../../../node_modules/rxjs/add/observable/fromPromise';
-import PouchDB from '../../../node_modules/pouchdb/dist/pouchdb';
+import PouchDB from 'pouchdb/dist/pouchdb';
 import * as _ from 'lodash';
 
 /*
@@ -67,7 +65,10 @@ export class Grupo {
         }));
     } else {
       // Return cached data as a promise
-      return Observable.of(this._results);
+      return Observable.create(observer =>{
+        observer.next(this._results);
+        observer.complete();
+      });
     }
   }
 

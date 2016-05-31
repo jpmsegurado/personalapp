@@ -1,7 +1,7 @@
 import {Page,NavController} from 'ionic-angular';
 import {Grupo} from '../../providers/grupo/grupo';
 import {ChartComponent} from '../../components/chart/chart';
-import {NgZone} from 'angular2/core';
+import {NgZone} from '@angular/core';
 
 @Page({
   templateUrl: 'build/pages/page1/page1.html',
