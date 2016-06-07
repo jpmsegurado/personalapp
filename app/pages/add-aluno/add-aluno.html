@@ -18,7 +18,7 @@
         </button>
         <ion-select (change)="onGrupoChange(aluno)" [(ngModel)]="aluno.grupoIndex" >
           <ion-option value="-1" selected>Nenhum</ion-option>
-          <ion-option *ngFor="#group of grupos" value="{{group._id}}">
+          <ion-option *ngFor="let group of grupos" value="{{group._id}}">
             {{group.nome}}
           </ion-option>
         </ion-select>

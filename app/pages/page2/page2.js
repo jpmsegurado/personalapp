@@ -51,12 +51,8 @@ export class Page2 {
         break;
     }
     this.GrupoService = GrupoService;
-    this.zone.run(() => {
-      this.GrupoService.getAll().subscribe((data) => {
-        this.grupos = data;
-      });
-      this.view = "hoje";
-    });
+    this.view = "hoje";
+    this.grupos = [];
   }
 
 

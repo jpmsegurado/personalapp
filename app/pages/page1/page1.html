@@ -1,30 +1,48 @@
 <ion-content padding class="page1 outer-content">
 
   <div *ngIf="!carregando">
-    <!-- <ion-card *ngIf="!(totalEsperado == 0 && totalRecebido == 0)">
+    <ion-card *ngIf="!(totalEsperado == 0 && totalRecebido == 0) && !carregando ">
       <ion-card-content>
         <h2>Faturamento</h2>
         <chart esperado="{{totalEsperado}}" recebido="{{totalRecebido}}" animate={{animate}}></chart>
       </ion-card-content>
-    </ion-card> -->
-
-
-    <ion-card *ngIf="!(totalEsperado == 0 && totalRecebido == 0)">
-      <ion-card-content>
-        <h2>Faturamento</h2>
-        <img src="images/indice.jpg" />
-        <p class="text-center">
-          Não há dados para análise. Cadastre uma aula.
-        </p>
-      </ion-card-content>
     </ion-card>
-    <ion-row>
-      <ion-col width-80 offset-10>
-        <button full verdebtn>Cadastre sua primeira aula</button>
-      </ion-col>
-    </ion-row>
 
-    <div class="gray-text" *ngIf="(totalEsperado == 0 && totalRecebido == 0)">
+
+    <div *ngIf="(totalEsperado == 0 && totalRecebido == 0) && !carregando && !!grupos">
+      <ion-card *ngIf="grupos.length ==  0">
+        <ion-card-content>
+          <h2>Faturamento</h2>
+          <img src="images/indice.jpg" />
+          <p class="text-center">
+            Não há dados para análise. Cadastre um aluno.
+          </p>
+        </ion-card-content>
+        <ion-row>
+          <ion-col width-80 offset-10>
+            <button full verdebtn (click)="goToAlunoPage()">Cadastre seu primeiro aluno</button>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+
+      <ion-card *ngIf="grupos.length >  0">
+        <ion-card-content>
+          <h2>Faturamento</h2>
+          <img src="images/indice.jpg" />
+          <p class="text-center">
+            Não há dados para análise. Cadastre uma aula.
+          </p>
+        </ion-card-content>
+        <ion-row>
+          <ion-col width-80 offset-10>
+            <button full verdebtn (click)="goToAlunoPage()">Cadastre sua primeira aula</button>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+    </div>
+
+
+    <!-- <div class="gray-text" *ngIf="(totalEsperado == 0 && totalRecebido == 0)">
       <div *ngIf="showMsg">
         <h5>Não há nenhuma aula cadastrada.</h5>
         <p>Cadastre para ter análises sobre seu faturamento.</p>
@@ -37,11 +55,11 @@
           5 - Veja os gráficos na tela inicial.
         </p>
       </div>
-    </div>
+    </div> -->
   </div>
 
-  <div *ngIf="carregando" class="spinner-wrapper">
-    <ion-spinner></ion-spinner>
-  </div>
+    <div *ngIf="carregando" class="spinner-wrapper">
+      <ion-spinner></ion-spinner>
+    </div>
 
 </ion-content>

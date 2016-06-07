@@ -27,9 +27,9 @@
           <ion-card *ngIf="grupo.horarios.length > 0 || aluno.isNew" (click)="alunoInfo(grupo,aluno)">
             <ion-card-content>
               <div class="card-wrapper">
-                <h2 class="bold">{{aluno.nome}} - {{aluno.objetivo}}</h2>
+                <h2 class="bold">{{aluno.nome}} - {{!!aluno.objetivo ? aluno.objetivo:'Objetivo não informado'}}</h2>
                 <p>
-                  {{aluno.peso}}kg - {{aluno.altura}}m
+                  {{!!aluno.peso ? aluno.peso+'kg':'Peso não informado'}} - {{!!aluno.altura ? aluno.altura+'m':'Altura não informada'}}
                 </p>
                 <button verdebtn clear class="info">
                   <ion-icon name="information-circle"></ion-icon>

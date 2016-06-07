@@ -70,20 +70,17 @@ export class AddAlunoPage {
   }
 
   add(aluno){
-    for(var atr in aluno){
-      if((aluno[atr] == undefined || aluno[atr].length == 0) && window.cordova && atr != "grupo"){
-        navigator.notification.alert(
-            'Há campos vazios, por favor preencha-os.',  // message
-            function(){},         // callback
-            'Atenção',            // title
-            'ok'                  // buttonName
-        );
-        return;
-      }else if((aluno[atr] == undefined || aluno[atr].length == 0) && !window.cordova && atr != "grupo"){
-        alert("preencha os campos!");
-        return;
-      }
-
+    if((aluno.nome.length == 0) && window.cordova && atr != "grupo"){
+      navigator.notification.alert(
+          'Por favor, forneça pelo menos um nome.',  // message
+          function(){},         // callback
+          'Atenção',            // title
+          'ok'                  // buttonName
+      );
+      return;
+    }else if((aluno.nome.length == 0) && !window.cordova && atr != "grupo"){
+      alert("Por favor, forneça pelo menos um nome.");
+      return;
     }
 
     let createNew = aluno.groupIndex == -1 || aluno.grupoIndex == "-1" || aluno.grupo == undefined ? true : false;

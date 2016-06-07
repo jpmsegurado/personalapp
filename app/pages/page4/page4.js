@@ -15,10 +15,6 @@ export class Page4 {
     this.view = "nao-recebidos";
     this.nav = nav;
     this.GrupoService = GrupoService;
-    this.GrupoService.getAll().subscribe((data) => {
-      this.grupos = data;
-      console.log(data);
-    });
 
     let date = new Date();
     this.mes = date.getMonth() + 1;
@@ -26,6 +22,13 @@ export class Page4 {
 
     this.arrMeses = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
 
+  }
+
+  onPageWillEnter(){
+    this.GrupoService.getAll().subscribe((data) => {
+      this.grupos = data;
+      console.log(data);
+    });
   }
 
   sum(grupo,aluno){

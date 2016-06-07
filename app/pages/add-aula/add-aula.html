@@ -15,7 +15,7 @@
       <ion-item>
         <ion-label inset>Aluno</ion-label>
         <ion-select [(ngModel)]="aula.alunoId.value" (change)="change(aula)">
-          <ion-option *ngFor="#item of alunos;" value="{{item._id}}">
+          <ion-option *ngFor="let item of alunos;" value="{{item._id}}">
             {{item.alunos[0].nome}} - {{item.alunos[0].objetivo}}
           </ion-option>
         </ion-select>
@@ -24,7 +24,7 @@
       <ion-item >
         <ion-label inset>Dia da semana</ion-label>
         <ion-select [(ngModel)]="aula.dia.value" >
-          <ion-option *ngFor="#dia of dias_semana" value="{{dia}}">
+          <ion-option *ngFor="let dia of dias_semana" value="{{dia}}">
             {{dia}}
           </ion-option>
         </ion-select>
@@ -59,7 +59,7 @@
       <ion-item>
         <ion-label inset>Grupo</ion-label>
         <ion-select [(ngModel)]="aula.grupoId.value" (change)="changeGrupo(aula)">
-          <ion-option *ngFor="#group of grupos;" value="{{group._id}}">
+          <ion-option *ngFor="let group of grupos;" value="{{group._id}}">
             {{group.nome}}
           </ion-option>
         </ion-select>
@@ -68,7 +68,7 @@
       <ion-item >
         <ion-label inset>Dia da semana</ion-label>
         <ion-select [(ngModel)]="aula.dia.value" >
-          <ion-option *ngFor="#dia of dias_semana" value="{{dia}}">
+          <ion-option *ngFor="let dia of dias_semana" value="{{dia}}">
             {{dia}}
           </ion-option>
         </ion-select>

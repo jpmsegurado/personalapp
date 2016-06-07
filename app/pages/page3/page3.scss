@@ -6,4 +6,11 @@
     bottom: 0;
     margin: auto;
   }
+
+  .card-wrapper p, .card-wrapper h2{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: calc(100% - 40px);
+    overflow: hidden;
+  }
 }

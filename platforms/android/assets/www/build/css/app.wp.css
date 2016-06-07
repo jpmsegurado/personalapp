@@ -10701,6 +10701,14 @@ body {
   height: 50px;
   text-align: center; }
 
+.page1 .loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto; }
+
 .page2 .dia {
   float: left;
   width: 14.285%;

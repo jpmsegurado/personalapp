@@ -53,9 +53,8 @@
                     {{aula.hora_inicio}} - {{aula.hora_fim}}
                   </p>
                   <div class="button-actions">
-                    <button clear primary>Remarcar</button>
-                    <button clear danger>Não</button>
-                    <button clear verdebtn (click)="confirmarAula(grupo,aula)">Sim</button>
+                    <button clear verdebtn *ngIf="!foiRealizada(grupo,aula)" (click)="confirmarAula(grupo,aula)">Confirmar</button>
+                    <button clear verdebtn *ngIf="foiRealizada(grupo,aula)" >Realizada</button>
                   </div>
                 </ion-card-content>
               </div>
